@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>看板更新中 · 丁阿姨又瘦啦</title>
+<style>
+  :root{
+    --ink:#2B211A; --ink2:#1C120B; --bg:#FBF6EF; --card:#FFFFFF;
+    --orange:#E8642C; --orange-deep:#C24A1C; --red:#B03A2E;
+    --teal:#1F7A5C; --text:#1A1B1C; --sub:#6B7280; --line:#EDE3D6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:linear-gradient(160deg,#1C120B 0%,#2B211A 42%,#3A2C22 100%);
+    min-height:100vh;color:#FBF3EA;
+    font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+    display:flex;align-items:center;justify-content:center;padding:24px;
+  }
+  .card{
+    width:100%;max-width:620px;background:rgba(255,255,255,.06);
+    border:1px solid rgba(232,100,44,.35);border-radius:18px;
+    padding:36px 34px;backdrop-filter:blur(4px);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+  }
+  .brand{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;}
+  .brand-en{font-family:'Noto Serif SC',serif;font-size:13px;letter-spacing:4px;color:#D9C6B6;}
+  .brand-cn{font-size:18px;letter-spacing:2px;}
+  .brand-cn b{color:var(--orange);font-weight:600;}
+  .sub{color:#BFAE9E;font-size:13px;margin-bottom:22px;}
+  .spinner-row{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+  .spinner{
+    width:38px;height:38px;border-radius:50%;flex:none;
+    border:4px solid rgba(232,100,44,.25);border-top-color:var(--orange);
+    animation:spin 1s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .spinner.paused{animation-play-state:paused;border-top-color:#BFAE9E;}
+  .st-title{font-size:16px;font-weight:600;}
+  .st-sub{font-size:12.5px;color:#D9C6B6;margin-top:3px;}
+  .steps{margin:6px 0 20px;display:flex;flex-direction:column;gap:10px;}
+  .step{
+    display:flex;align-items:center;gap:10px;font-size:13.5px;
+    padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .step .ico{width:20px;height:20px;flex:none;text-align:center;line-height:20px;font-size:12px;border-radius:50%;}
+  .step.done .ico{background:var(--teal);color:#fff;}
+  .step.active .ico{background:var(--orange);color:#fff;animation:pulse 1.2s ease-in-out infinite;}
+  .step.wait .ico{background:rgba(255,255,255,.12);color:#BFAE9E;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.45;}}
+  .step .t{flex:1;}
+  .step .ts{font-size:12px;color:#BFAE9E;}
+  .eta{
+    border:1px dashed rgba(232,100,44,.5);border-radius:10px;
+    padding:12px 14px;font-size:13px;color:#FBF3EA;margin-bottom:18px;
+    background:rgba(232,100,44,.07);display:flex;gap:8px;align-items:center;
+  }
+  .eta b{color:var(--orange);}
+  .btn{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--orange);color:#fff;text-decoration:none;
+    font-size:13.5px;font-weight:600;padding:10px 20px;border-radius:10px;
+    border:none;cursor:pointer;transition:background .2s;
+  }
+  .btn:hover{background:var(--orange-deep);}
+  .btn.ghost{background:transparent;border:1px solid rgba(232,100,44,.6);color:#FBF3EA;}
+  .btn.ghost:hover{background:rgba(232,100,44,.12);}
+  .row{display:flex;gap:10px;flex-wrap:wrap;}
+  .history{margin-top:22px;border-top:1px solid rgba(255,255,255,.1);padding-top:14px;}
+  .history .h-label{font-size:12px;color:#BFAE9E;letter-spacing:1px;margin-bottom:8px;}
+  .history .h-item{font-size:12px;color:#D9C6B6;display:flex;gap:8px;margin-bottom:4px;}
+  .history .h-type{color:var(--orange);}
+  .countdown{font-size:12.5px;color:#D9C6B6;margin-top:10px;}
+  .err{color:#FFB4A9;font-size:12.5px;margin-top:10px;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">
+    <span class="brand-en">DING AYI</span>
+    <span class="brand-cn"><b>丁阿姨又瘦啦</b> · 看板更新</span>
+  </div>
+  <div class="sub">抖音 / 小红书双平台热点 × 编导视角借势建议</div>
+
+  <div class="spinner-row">
+    <div class="spinner" id="spinner"></div>
+    <div>
+      <div class="st-title" id="st-title">正在准备更新…</div>
+      <div class="st-sub" id="st-sub">请先在 GitHub 触发更新任务</div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step wait" id="s1"><span class="ico">1</span><span class="t">拉取抖音热榜 / 小红书热搜</span><span class="ts" id="s1ts">等待</span></div>
+    <div class="step wait" id="s2"><span class="ico">2</span><span class="t">AI 编导借势分析（70 条建议）</span><span class="ts" id="s2ts">等待</span></div>
+    <div class="step wait" id="s3"><span class="ico">3</span><span class="t">构建看板并发布上线</span><span class="ts" id="s3ts">等待</span></div>
+  </div>
+
+  <div class="eta" id="eta">
+    <span>⏱</span><span id="eta-text">预计需要 <b>3～6 分钟</b>（AI 分析最耗时），期间可关闭本页，完成后会显示最新数据。</span>
+  </div>
+
+  <div class="row">
+    <a class="btn" id="go-gh" href="https://github.com/ZYJ-ui12/dingayi-hotspot/actions/workflows/daily.yml" target="_blank" rel="noopener">↻ 前往 GitHub 触发更新</a>
+    <a class="btn ghost" href="index.html">← 返回看板</a>
+  </div>
+  <div class="countdown" id="countdown"></div>
+  <div class="err" id="err"></div>
+
+  <div class="history">
+    <div class="h-label">最近更新时间记录</div>
+    <div id="hlist"><div class="h-item">— 暂无记录 —</div></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var REPO = 'ZYJ-ui12/dingayi-hotspot';
+  var API = 'https://api.github.com/repos/' + REPO + '/actions/runs?per_page=5';
+  var baselineId = null;
+  var startedAt = null;
+  var stopPoll = false;
+  var pollTimer = null;
+  var lastCompletedAt = null;
+
+  function $(id){ return document.getElementById(id); }
+
+  function setSteps(phase, startedSec){
+    // phase: idle / fetching / llm / building / done / fail
+    var s1 = $('s1'), s2 = $('s2'), s3 = $('s3');
+    function cls(el, c){ el.className = 'step ' + c; }
+    if (phase === 'idle'){
+      cls(s1,'wait'); cls(s2,'wait'); cls(s3,'wait');
+      $('s1ts').textContent = '等待'; $('s2ts').textContent = '等待'; $('s3ts').textContent = '等待';
+    } else if (phase === 'fetching'){
+      cls(s1,'active'); cls(s2,'wait'); cls(s3,'wait');
+      $('s1ts').textContent = '进行中'; $('s2ts').textContent = '等待'; $('s3ts').textContent = '等待';
+    } else if (phase === 'llm'){
+      cls(s1,'done'); cls(s2,'active'); cls(s3,'wait');
+      $('s1ts').textContent = '已完成'; $('s2ts').textContent = 'AI 分析中…'; $('s3ts').textContent = '等待';
+    } else if (phase === 'building'){
+      cls(s1,'done'); cls(s2,'done'); cls(s3,'active');
+      $('s1ts').textContent = '已完成'; $('s2ts').textContent = '已完成'; $('s3ts').textContent = '发布中…';
+    } else if (phase === 'done'){
+      cls(s1,'done'); cls(s2,'done'); cls(s3,'done');
+      $('s1ts').textContent = '已完成'; $('s2ts').textContent = '已完成'; $('s3ts').textContent = '已上线';
+    } else if (phase === 'fail'){
+      cls(s1,'done'); cls(s2,'done'); cls(s3,'wait');
+      $('s1ts').textContent = '已完成'; $('s2ts').textContent = '已完成'; $('s3ts').textContent = '失败';
+    }
+    if (phase === 'idle'){
+      $('spinner').className = 'spinner paused';
+      $('st-title').textContent = '尚未检测到更新任务';
+      $('st-sub').textContent = '点击上方按钮前往 GitHub 触发一次更新（每日上限 5 次）';
+    } else if (phase === 'done'){
+      $('spinner').className = 'spinner';
+      $('st-title').textContent = '更新完成，正在加载最新数据…';
+      $('st-sub').textContent = '页面即将自动跳转';
+    } else if (phase === 'fail'){
+      $('spinner').className = 'spinner paused';
+      $('st-title').textContent = '本次更新未成功';
+      $('st-sub').textContent = '可在 GitHub Actions 查看日志';
+    } else {
+      $('spinner').className = 'spinner';
+      var sec = startedSec || 0;
+      var mm = Math.floor(sec/60), ss = sec%60;
+      $('st-title').textContent = '更新进行中（已用时 ' + (mm<10?'0':'') + mm + ':' + (ss<10?'0':'') + ss + '）';
+      $('st-sub').textContent = 'AI 分析需要几分钟，预计总共 3～6 分钟';
+    }
+  }
+
+  function fmtTime(iso){
+    if(!iso) return '';
+    var d = new Date(iso);
+    function p(n){ return (n<10?'0':'')+n; }
+    return p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes());
+  }
+
+  function loadHistory(){
+    fetch('https://api.github.com/repos/' + REPO + '/contents/update-history.json', {headers:{'Accept':'application/vnd.github.v3+json'}})
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if(!d || !d.content) return;
+        var arr = JSON.parse(atob(d.content.replace(/\n/g,'')));
+        var list = arr.slice(-5).reverse();
+        var html = '';
+        list.forEach(function(h){
+          var typ = h.type === 'manual' ? '手动' : '自动';
+          html += '<div class="h-item"><span>' + (h.time||'') + '</span><span class="h-type">' + typ + '</span></div>';
+        });
+        $('hlist').innerHTML = html || '<div class="h-item">— 暂无记录 —</div>';
+      }).catch(function(){});
+  }
+
+  function render(run){
+    var st = run.status; // in_progress / completed
+    var concl = run.conclusion; // success / failure / cancelled / null
+    var created = new Date(run.created_at).getTime();
+    var elapsed = Math.floor((Date.now() - created) / 1000);
+    if (st === 'in_progress'){
+      // 用名称/耗时推断阶段：fetch秒级，llm约2-4分钟，构建约1分钟
+      if (elapsed < 40) { setSteps('fetching', elapsed); }
+      else if (elapsed < 260) { setSteps('llm', elapsed); }
+      else { setSteps('building', elapsed); }
+      $('eta-text').innerHTML = '⏱ <span>已进行 ' + Math.floor(elapsed/60) + ' 分钟，预计还需 <b>' + Math.max(1, Math.ceil((360 - elapsed)/60)) + '</b> 分钟</span>';
+    } else if (st === 'completed'){
+      if (concl === 'success'){
+        setSteps('done', elapsed);
+        $('eta-text').innerHTML = '本次更新已完成，正在为您加载最新看板…';
+        $('countdown').textContent = '3 秒后自动返回看板';
+        if (!stopPoll){
+          stopPoll = true;
+          var n = 3;
+          var iv = setInterval(function(){
+            n--;
+            $('countdown').textContent = n + ' 秒后自动返回看板';
+            if (n <= 0){
+              clearInterval(iv);
+              location.href = 'index.html';
+            }
+          }, 1000);
+        }
+      } else {
+        setSteps('fail', elapsed);
+        $('eta-text').innerHTML = '本次更新未能成功（' + (concl||'unknown') + '），请前往 GitHub Actions 查看日志';
+        $('err').textContent = '每日手动上限 5 次，超限时本次会被自动跳过，属正常现象。';
+        $('spinner').className = 'spinner paused';
+      }
+    }
+  }
+
+  function poll(){
+    if (stopPoll) return;
+    fetch(API, {headers:{'Accept':'application/vnd.github.v3+json'}})
+      .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+      .then(function(d){
+        var runs = d.workflow_runs || [];
+        var latest = null;
+        for (var i=0;i<runs.length;i++){
+          if (runs[i].event === 'workflow_dispatch'){
+            latest = runs[i]; break;
+          }
+        }
+        if (!latest){ setSteps('idle'); return; }
+        if (baselineId === null){
+          baselineId = latest.id;
+          // 打开页面时已有进行中的任务 → 视为本次
+          if (latest.status === 'in_progress'){
+            startedAt = new Date(latest.created_at).getTime();
+            render(latest);
+          } else {
+            setSteps('idle');
+          }
+          return;
+        }
+        if (latest.id > baselineId){
+          baselineId = latest.id;
+          startedAt = new Date(latest.created_at).getTime();
+          render(latest);
+        } else {
+          render(latest);
+        }
+      })
+      .catch(function(){
+        $('err').textContent = '暂时无法连接 GitHub（网络问题），请稍后手动刷新看板。';
+      });
+  }
+
+  loadHistory();
+  setSteps('idle');
+  // 首查延迟 1.2s，之后每 15s 轮询一次（公开 API 限速 60 次/小时，15s×~20 次在安全范围）
+  setTimeout(function(){ poll(); }, 1200);
+  pollTimer = setInterval(function(){ poll(); }, 15000);
+})();
+</script>
+</body>
+</html>

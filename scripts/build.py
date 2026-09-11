@@ -429,7 +429,7 @@ TPL = '''<!DOCTYPE html>
     </div>
     <div class="update-box">
       <span class="update-info">今日已手动更新 <b id="manual-used">{MANUAL_USED}</b> / {MANUAL_LIMIT} 次</span>
-      <a class="update-btn" href="https://github.com/ZYJ-ui12/dingayi-hotspot/actions/workflows/daily.yml" target="_blank" rel="noopener">↻ 立即更新</a>
+      <a class="update-btn" href="update.html" target="_blank" rel="noopener">↻ 立即更新</a>
     </div>
     <div class="update-history" id="update-history">
       <span class="uh-label">更新时间记录</span>
