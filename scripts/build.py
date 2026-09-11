@@ -425,10 +425,10 @@ TPL = '''<!DOCTYPE html>
     <div class="meta-line">
       <span>{DATE_CN}</span><span class="dot"></span>
       <span>数据源：抖音热榜 / 小红书热搜</span><span class="dot"></span>
-      <span>每日 10:00 / 15:00 自动更新</span>
+      <span>手动更新 · 每日上限 5 次</span>
     </div>
     <div class="update-box">
-      <span class="update-info">今日已手动更新 <b id="manual-used">{MANUAL_USED}</b> / {MANUAL_LIMIT} 次（自动更新不计入）</span>
+      <span class="update-info">今日已手动更新 <b id="manual-used">{MANUAL_USED}</b> / {MANUAL_LIMIT} 次</span>
       <a class="update-btn" href="https://github.com/ZYJ-ui12/dingayi-hotspot/actions/workflows/daily.yml" target="_blank" rel="noopener">↻ 立即更新</a>
     </div>
     <div class="update-history" id="update-history">
