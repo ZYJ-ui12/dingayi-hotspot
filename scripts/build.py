@@ -22,6 +22,15 @@ except Exception:
     manual_today = 0
 MANUAL_LIMIT = 5
 
+# 更新时间记录（云端工作流每次成功更新后追加；页面展示最近 12 条）
+update_history = []
+try:
+    uh = json.load(open(os.path.join(root, 'update-history.json'), encoding='utf-8'))
+    if isinstance(uh, list):
+        update_history = uh[-12:]
+except Exception:
+    pass
+
 missing = []
 for plat in ('douyin', 'xhs'):
     for it in hot[plat]:
@@ -153,6 +162,12 @@ CSS = r'''
   .update-info b{color:var(--orange);font-weight:700;}
   .update-btn{display:inline-flex;align-items:center;gap:5px;background:var(--orange);color:#fff;text-decoration:none;font-size:12.5px;font-weight:600;padding:7px 16px;border-radius:8px;transition:background .2s;}
   .update-btn:hover{background:var(--orange-deep);}
+  .update-history{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:#C9B7A6;}
+  .uh-label{color:#FBF3EA;font-weight:600;letter-spacing:1px;white-space:nowrap;}
+  .uh-list{display:flex;flex-wrap:wrap;gap:6px 10px;}
+  .uh-item{white-space:nowrap;}
+  .uh-item .uh-time{color:#FBF3EA;}
+  .uh-item .uh-type{color:var(--orange);}
   .tagline{
     margin-top:14px;font-family:'Noto Serif SC',serif;font-size:17px;color:#FBF3EA;
     letter-spacing:2px;
@@ -415,6 +430,10 @@ TPL = '''<!DOCTYPE html>
     <div class="update-box">
       <span class="update-info">今日已手动更新 <b id="manual-used">{MANUAL_USED}</b> / {MANUAL_LIMIT} 次（自动更新不计入）</span>
       <a class="update-btn" href="https://github.com/ZYJ-ui12/dingayi-hotspot/actions/workflows/daily.yml" target="_blank" rel="noopener">↻ 立即更新</a>
+    </div>
+    <div class="update-history" id="update-history">
+      <span class="uh-label">更新时间记录</span>
+      <span class="uh-list">{UPDATE_HISTORY}</span>
     </div>
     <div class="tagline">{TAGLINE}</div>
     <div class="assets">
@@ -780,10 +799,17 @@ def render(data_js, css):
     cats = ["全部","时尚穿搭","体育赛事","影视综艺","情感话题","生活方式","知识科普","社会事件","科技财经","美食探店","娱乐八卦"]
     now = datetime.datetime.now()
     date_cn = '%d年%d月%d日 星期%s' % (now.year, now.month, now.day, '一二三四五六日'[now.weekday()])
+    uh_items = []
+    for h in reversed(update_history[-12:]):
+        t = str(h.get('time', ''))[:16]
+        typ = '手动' if h.get('type') == 'manual' else '自动'
+        uh_items.append('<span class="uh-item"><span class="uh-time">%s</span> <span class="uh-type">%s</span></span>' % (t, typ))
+    uh_html = '（暂无更新记录）' if not uh_items else ''.join(uh_items)
     out = TPL.format(
         TITLE=META['title'], EN=META['en'], CN=META['cn'], TAGLINE=META['tagline'],
         ASSETS=assets, DATA=data_js, DATE_CN=date_cn,
         MANUAL_USED=manual_today, MANUAL_LIMIT=MANUAL_LIMIT,
+        UPDATE_HISTORY=uh_html,
         CATS=json.dumps(cats, ensure_ascii=False),
         TOP3=json.dumps(TOP3, ensure_ascii=False),
         css=css,

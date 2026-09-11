@@ -44,6 +44,12 @@
   .update-info b{color:var(--orange);font-weight:700;}
   .update-btn{display:inline-flex;align-items:center;gap:5px;background:var(--orange);color:#fff;text-decoration:none;font-size:12.5px;font-weight:600;padding:7px 16px;border-radius:8px;transition:background .2s;}
   .update-btn:hover{background:var(--orange-deep);}
+  .update-history{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:#C9B7A6;}
+  .uh-label{color:#FBF3EA;font-weight:600;letter-spacing:1px;white-space:nowrap;}
+  .uh-list{display:flex;flex-wrap:wrap;gap:6px 10px;}
+  .uh-item{white-space:nowrap;}
+  .uh-item .uh-time{color:#FBF3EA;}
+  .uh-item .uh-type{color:var(--orange);}
   .tagline{
     margin-top:14px;font-family:'Noto Serif SC',serif;font-size:17px;color:#FBF3EA;
     letter-spacing:2px;
@@ -296,6 +302,10 @@
     <div class="update-box">
       <span class="update-info">今日已手动更新 <b id="manual-used">0</b> / 5 次（自动更新不计入）</span>
       <a class="update-btn" href="https://github.com/ZYJ-ui12/dingayi-hotspot/actions/workflows/daily.yml" target="_blank" rel="noopener">↻ 立即更新</a>
+    </div>
+    <div class="update-history" id="update-history">
+      <span class="uh-label">更新时间记录</span>
+      <span class="uh-list">（暂无更新记录）</span>
     </div>
     <div class="tagline">气血丰盈地瘦 · 快乐老狗不走捷径 —— 博主 × 双平台每日热点结合</div>
     <div class="assets">
