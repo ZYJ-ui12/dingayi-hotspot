@@ -102,7 +102,7 @@
   </div>
 
   <div class="row">
-    <a class="btn" id="go-gh" href="https://github.com/ZYJ-ui12/dingayi-hotspot/actions/workflows/daily.yml" target="_blank" rel="noopener">↻ 前往 GitHub 触发更新</a>
+    <button class="btn" id="trigger-btn">↻ 立即触发更新</button>
     <a class="btn ghost" href="index.html">← 返回看板</a>
   </div>
   <div class="countdown" id="countdown"></div>
@@ -118,6 +118,9 @@
 (function(){
   var REPO = 'ZYJ-ui12/dingayi-hotspot';
   var API = 'https://api.github.com/repos/' + REPO + '/actions/runs?per_page=5';
+  // ★ 触发代理端点：部署 Cloudflare Worker 后替换为你的 Worker URL
+  // 例如：https://dingayi-trigger.your-username.workers.dev
+  var TRIGGER_ENDPOINT = '__YOUR_WORKER_URL__';
   var baselineId = null;
   var startedAt = null;
   var stopPoll = false;
@@ -152,7 +155,7 @@
     if (phase === 'idle'){
       $('spinner').className = 'spinner paused';
       $('st-title').textContent = '尚未检测到更新任务';
-      $('st-sub').textContent = '点击上方按钮前往 GitHub 触发一次更新（每日上限 5 次）';
+      $('st-sub').textContent = '点击下方「立即触发更新」按钮开始（每日上限 5 次，无需 GitHub 账号）';
     } else if (phase === 'done'){
       $('spinner').className = 'spinner';
       $('st-title').textContent = '更新完成，正在加载最新数据…';
@@ -238,7 +241,8 @@
         var runs = d.workflow_runs || [];
         var latest = null;
         for (var i=0;i<runs.length;i++){
-          if (runs[i].event === 'workflow_dispatch'){
+          // API dispatch 的 run event 可能显示为 workflow_dispatch 或 dynamic，均匹配
+          if (runs[i].event === 'workflow_dispatch' || runs[i].event === 'dynamic'){
             latest = runs[i]; break;
           }
         }
@@ -267,8 +271,46 @@
       });
   }
 
+  function triggerUpdate(){
+    var btn = $('trigger-btn');
+    if (btn.disabled) return;
+    btn.disabled = true;
+    btn.textContent = '触发中…';
+    $('err').textContent = '';
+
+    if (TRIGGER_ENDPOINT === '__YOUR_WORKER_URL__'){
+      btn.disabled = false;
+      btn.textContent = '↻ 立即触发更新';
+      $('err').textContent = '触发代理尚未配置：请先部署 Cloudflare Worker 并更新 TRIGGER_ENDPOINT。';
+      return;
+    }
+
+    fetch(TRIGGER_ENDPOINT, { method: 'POST' })
+      .then(function(r){ return r.json().then(function(d){ return { status: r.status, data: d }; }); })
+      .then(function(res){
+        if (res.data && res.data.ok){
+          // 触发成功：重置基线，等待新 run 出现
+          baselineId = null;
+          $('st-title').textContent = '更新已触发，正在启动…';
+          $('st-sub').textContent = '通常 10 秒内开始拉取热榜';
+          $('spinner').className = 'spinner';
+          btn.textContent = '更新进行中…';
+          // 立即查一次，之后轮询会接管
+          setTimeout(function(){ poll(); }, 3000);
+        } else {
+          throw new Error((res.data && res.data.error) || ('HTTP ' + res.status));
+        }
+      })
+      .catch(function(e){
+        btn.disabled = false;
+        btn.textContent = '↻ 立即触发更新';
+        $('err').textContent = '触发失败：' + e.message + '（可能是每日上限已达 5 次，或代理未配置）';
+      });
+  }
+
   loadHistory();
   setSteps('idle');
+  $('trigger-btn').addEventListener('click', triggerUpdate);
   // 首查延迟 1.2s，之后每 15s 轮询一次（公开 API 限速 60 次/小时，15s×~20 次在安全范围）
   setTimeout(function(){ poll(); }, 1200);
   pollTimer = setInterval(function(){ poll(); }, 15000);
