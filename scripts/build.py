@@ -13,6 +13,15 @@ adv_data = json.load(open(os.path.join(root, 'adv.json'), encoding='utf-8'))
 adv = adv_data['items']
 TOP3 = adv_data.get('top3', [])
 
+# 手动更新限额记录（云端工作流维护，仅 workflow_dispatch 计次；自动更新不计）
+manual_today = 0
+try:
+    ulog = json.load(open(os.path.join(root, 'update-log.json'), encoding='utf-8'))
+    manual_today = int(ulog.get(datetime.date.today().isoformat(), 0))
+except Exception:
+    manual_today = 0
+MANUAL_LIMIT = 5
+
 missing = []
 for plat in ('douyin', 'xhs'):
     for it in hot[plat]:
@@ -139,6 +148,11 @@ CSS = r'''
     font-size:12.5px;color:#BFAE9E;
   }
   .meta-line .dot{width:4px;height:4px;border-radius:50%;background:var(--orange);display:inline-block;}
+  .update-box{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:12px;background:rgba(255,255,255,.06);border:1px dashed rgba(232,100,44,.55);border-radius:10px;padding:9px 14px;}
+  .update-info{font-size:12px;color:#D9C6B6;}
+  .update-info b{color:var(--orange);font-weight:700;}
+  .update-btn{display:inline-flex;align-items:center;gap:5px;background:var(--orange);color:#fff;text-decoration:none;font-size:12.5px;font-weight:600;padding:7px 16px;border-radius:8px;transition:background .2s;}
+  .update-btn:hover{background:var(--orange-deep);}
   .tagline{
     margin-top:14px;font-family:'Noto Serif SC',serif;font-size:17px;color:#FBF3EA;
     letter-spacing:2px;
@@ -396,7 +410,11 @@ TPL = '''<!DOCTYPE html>
     <div class="meta-line">
       <span>{DATE_CN}</span><span class="dot"></span>
       <span>数据源：抖音热榜 / 小红书热搜</span><span class="dot"></span>
-      <span>每日 10:00 自动更新</span>
+      <span>每日 10:00 / 15:00 自动更新</span>
+    </div>
+    <div class="update-box">
+      <span class="update-info">今日已手动更新 <b id="manual-used">{MANUAL_USED}</b> / {MANUAL_LIMIT} 次（自动更新不计入）</span>
+      <a class="update-btn" href="https://github.com/ZYJ-ui12/dingayi-hotspot/actions/workflows/daily.yml" target="_blank" rel="noopener">↻ 立即更新</a>
     </div>
     <div class="tagline">{TAGLINE}</div>
     <div class="assets">
@@ -765,6 +783,7 @@ def render(data_js, css):
     out = TPL.format(
         TITLE=META['title'], EN=META['en'], CN=META['cn'], TAGLINE=META['tagline'],
         ASSETS=assets, DATA=data_js, DATE_CN=date_cn,
+        MANUAL_USED=manual_today, MANUAL_LIMIT=MANUAL_LIMIT,
         CATS=json.dumps(cats, ensure_ascii=False),
         TOP3=json.dumps(TOP3, ensure_ascii=False),
         css=css,
