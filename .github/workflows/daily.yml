@@ -1,0 +1,127 @@
+name: dingayi-hotspot-daily
+
+on:
+  # 纯手动模式：通过看板「立即更新」按钮（或仓库 Actions 页 Run workflow）触发，
+  # 每次手动更新计 1 次，每日上限 5 次（见下方限额步骤）。
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dingayi-daily
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      ARK_API_KEY: ${{ secrets.ARK_API_KEY }}
+      ARK_MODEL: ${{ secrets.ARK_MODEL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # 手动更新限额：仅 workflow_dispatch（页面按钮/手动触发）计次，每日上限 5 次；
+      # schedule 自动更新（10:00 / 15:00）不占额度、不递增。
+      - name: 手动更新限额（每日上限5次，自动更新不计）
+        id: limit
+        env:
+          UPDATE_LIMIT: 5
+        run: |
+          python - <<'PY'
+          import json, os
+          from datetime import date
+          LOG = 'update-log.json'
+          LIMIT = int(os.environ.get('UPDATE_LIMIT', '5'))
+          if os.environ.get('GITHUB_EVENT_NAME') != 'workflow_dispatch':
+              print('schedule 自动更新，不占手动额度')
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write('allowed=true\n')
+              raise SystemExit(0)
+          today = str(date.today())
+          data = {}
+          if os.path.exists(LOG):
+              try:
+                  data = json.load(open(LOG, encoding='utf-8'))
+              except Exception:
+                  data = {}
+          used = int(data.get(today, 0))
+          if used >= LIMIT:
+              print('今日手动更新已达上限 %d 次，本次跳过' % LIMIT)
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write('allowed=false\n')
+          else:
+              data[today] = used + 1
+              json.dump(data, open(LOG, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+              print('今日手动更新第 %d / %d 次' % (used + 1, LIMIT))
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write('allowed=true\n')
+          PY
+
+      - name: 检查 API Key（未配置则跳过本次，等待配置）
+        if: steps.limit.outputs.allowed != 'false'
+        run: echo "ARK_API_KEY 尚未配置，本次更新跳过（不会报错）。请在仓库 Settings->Secrets 添加。" && exit 0
+
+      - name: 抓取抖音/小红书双平台热榜
+        if: steps.limit.outputs.allowed != 'false'
+        run: python scripts/fetch_hot.py
+
+      - name: 生成博主借势建议（方舟 LLM，编导视角）
+        if: steps.limit.outputs.allowed != 'false'
+        run: python scripts/llm_advise.py
+
+      # 记录必须在构建之前：构建时读取 update-history.json，本次时间才能立即显示在页面
+      - name: 记录本次更新时间（页面展示最近 12 条）
+        if: steps.limit.outputs.allowed != 'false'
+        run: |
+          python - <<'PY'
+          import json, os, datetime
+          LOG = 'update-history.json'
+          data = []
+          if os.path.exists(LOG):
+              try:
+                  data = json.load(open(LOG, encoding='utf-8'))
+                  if not isinstance(data, list):
+                      data = []
+              except Exception:
+                  data = []
+          typ = 'manual' if os.environ.get('GITHUB_EVENT_NAME') == 'workflow_dispatch' else 'auto'
+          data.append({
+              'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M'),
+              'type': typ,
+          })
+          data = data[-60:]  # 最多保留 60 条
+          json.dump(data, open(LOG, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+          print('recorded update:', data[-1])
+          PY
+
+      - name: 构建博主看板 HTML
+        if: steps.limit.outputs.allowed != 'false'
+        run: python scripts/build.py
+
+      - name: 保存历史数据快照（用于热点生命周期追踪）
+        if: steps.limit.outputs.allowed != 'false'
+        run: |
+          mkdir -p history
+          cp hotdata.json history/$(date +%F).json
+          echo "已保存历史快照: history/$(date +%F).json"
+
+      - name: 提交并推送
+        if: steps.limit.outputs.allowed != 'false'
+        run: |
+          git config user.name "dingayi-bot"
+          git config user.email "dingayi-bot@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "无内容变化，跳过提交"
+          else
+            git commit -m "daily update: $(date +%F)"
+            git pull --rebase origin main
+            git push
+            echo "已推送每日更新"
+          fi
