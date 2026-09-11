@@ -3,7 +3,8 @@
 // 作用：代理 GitHub Actions workflow_dispatch，
 //       让看板用户无需 GitHub 账号即可点击触发更新。
 // 部署：Cloudflare Workers → Create Worker → 粘贴本代码 →
-//       Settings → Variables → 添加 GITHUB_TOKEN（你的 GitHub PAT，需 repo 权限）
+//       Settings → Variables → 添加加密变量 GITHUB_TOKEN（你的 GitHub PAT，需 repo 权限）
+// 防刷依赖 GitHub workflow 每日上限 5 次，无需额外密钥
 // ============================================================
 
 // 允许跨域调用的来源（看板域名）
