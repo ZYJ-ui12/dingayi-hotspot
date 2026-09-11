@@ -4,7 +4,7 @@
 
 - 线上地址：<https://zyj-ui12.github.io/dingayi-hotspot/>
 - 数据源：86TOOL hot-rank（抖音热榜 50 / 小红书热搜 20）
-- 更新机制：当前由本地定时任务每日 10:00 自动抓取→生成建议→构建→推送；线上 GitHub Actions 工作流已就绪（`.github/workflows/daily.yml`），取消 schedule 注释并停用本地任务即可切换为云端自动更新。
+- 更新机制：云端 GitHub Actions 自动更新，每天 2 次（北京时间 10:00 与 15:00），流程为 抓取→生成建议→构建→推送→Pages 自动发布；支持手动触发（仓库 Actions 页 Run workflow）。
 - 建议原则：专业编导视角、客观理性、不为蹭而蹭；不制造身材焦虑、不消费医疗个案、不承诺效果、不用极端减脂方法。
 
 ## 目录
