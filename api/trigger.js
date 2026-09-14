@@ -1,8 +1,9 @@
 // Vercel Serverless Function: 触发 GitHub Actions workflow_dispatch
+// CommonJS 语法（Vercel Node.js 默认）
 // 部署后在 Vercel Project Settings → Environment Variables 添加 GITHUB_TOKEN
 // 国内可直接访问，token 存服务端不进前端
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // CORS：允许看板页面跨域调用
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
