@@ -8,41 +8,43 @@
 <style>
 
   :root{
-    --ink:#2B211A; --bg:#FBF6EF; --card:#FFFFFF;
+    --ink:#2B211A; --ink2:#1C120B; --bg:#FBF6EF; --card:#FFFFFF;
     --orange:#E8642C; --orange-deep:#C24A1C; --red:#B03A2E;
-    --text:#1A1B1C; --sub:#6B7280; --line:#EDE3D6;
+    --teal:#1F7A5C; --text:#1A1B1C; --sub:#6B7280; --line:#EDE3D6;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     background:var(--bg);color:var(--text);
     font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
     font-weight:400;line-height:1.6;
   }
-  .wrap{max-width:960px;margin:0 auto;padding:0 20px 48px;}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px 48px;}
 
   /* ===== 头部 ===== */
   header{
     background:linear-gradient(135deg,#2E2118 0%,#1C120B 100%);
-    color:#FBF3EA;padding:28px 0 24px;border-bottom:3px solid var(--orange);
+    color:#FBF3EA;padding:30px 0 26px;border-bottom:3px solid var(--orange);
   }
-  .h-wrap{max-width:960px;margin:0 auto;padding:0 20px;}
+  .h-wrap{max-width:1060px;margin:0 auto;padding:0 20px;}
   .brand-line{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
   .brand-en{
-    font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;
+    font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;
     letter-spacing:4px;color:#FBF3EA;
   }
-  .brand-cn{font-size:14px;letter-spacing:2px;color:#D9C6B6;}
+  .brand-cn{font-size:15px;letter-spacing:3px;color:#D9C6B6;}
   .brand-cn b{color:var(--orange);font-weight:500;}
   .meta-line{
     margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-    font-size:12px;color:#BFAE9E;
+    font-size:12.5px;color:#BFAE9E;
   }
   .meta-line .dot{width:4px;height:4px;border-radius:50%;background:var(--orange);display:inline-block;}
   .tagline{
-    margin-top:12px;font-family:'Noto Serif SC',serif;font-size:16px;color:#FBF3EA;
+    margin-top:14px;font-family:'Noto Serif SC',serif;font-size:17px;color:#FBF3EA;
     letter-spacing:2px;
   }
-  .assets{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;}
+  .tagline em{font-style:normal;color:var(--orange);}
+  .assets{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px;}
   .asset{
     font-size:11px;border:1px solid rgba(251,243,234,.35);color:#D9C6B6;
     border-radius:999px;padding:2px 10px;letter-spacing:.5px;
@@ -50,61 +52,69 @@
   .asset.on{border-color:var(--orange);color:var(--orange);}
 
   /* ===== 章节标题 ===== */
-  .sec-title{margin:30px 0 12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
-  .sec-title h2{font-family:'Noto Serif SC',serif;font-size:19px;font-weight:600;color:var(--ink);}
+  .sec-title{margin:34px 0 14px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  .sec-title h2{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:600;color:var(--ink);}
   .sec-title span{font-size:12px;color:var(--sub);}
 
   /* ===== TOP3 ===== */
   .top3{display:flex;gap:14px;flex-wrap:wrap;}
   .t3{
     flex:1 1 280px;min-width:0;background:var(--card);border:1px solid var(--line);
-    border-top:3px solid var(--orange);border-radius:10px;padding:16px;
+    border-top:3px solid var(--orange);border-radius:10px;padding:16px 16px 14px;
     display:flex;flex-direction:column;gap:6px;
   }
   .t3 .no{font-family:'Noto Serif SC',serif;font-size:12px;color:var(--orange-deep);letter-spacing:1px;}
-  .t3 h3{font-size:15px;font-weight:600;color:var(--ink);}
+  .t3 h3{font-size:16px;font-weight:600;color:var(--ink);}
   .t3 .src{font-size:11.5px;color:var(--sub);}
   .t3 .tact{font-size:12.5px;color:var(--text);border-top:1px dashed var(--line);padding-top:8px;margin-top:2px;}
   .t3 .tact b{color:var(--orange-deep);font-weight:600;}
 
-  /* ===== 平台切换 ===== */
-  .tabs{display:flex;gap:8px;margin-bottom:14px;}
+  /* ===== 看板控制 ===== */
+  .controls{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;display:flex;flex-direction:column;gap:10px;margin-bottom:16px;
+  }
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;}
   .tab{
     font-size:13px;padding:6px 18px;border-radius:8px;border:1px solid var(--line);
     background:#FFFDF9;color:var(--ink);cursor:pointer;transition:all .15s;
     font-family:'Noto Sans SC',sans-serif;
   }
   .tab.active{background:var(--ink);color:#FBF3EA;border-color:var(--ink);}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;}
+  .chip{
+    font-size:11.5px;padding:3px 11px;border-radius:999px;border:1px solid var(--line);
+    background:#FFFDF9;color:var(--sub);cursor:pointer;transition:all .15s;
+  }
+  .chip.active{background:var(--orange);color:#fff;border-color:var(--orange);}
+  .count-hint{font-size:11.5px;color:var(--sub);}
+  .ctrl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .ctrl-label{font-size:11.5px;color:var(--sub);white-space:nowrap;letter-spacing:1px;}
+  .chips .cnt{font-size:10.5px;opacity:.8;margin-left:4px;}
 
   /* ===== 热点卡片 ===== */
   .card{
     background:var(--card);border:1px solid var(--line);border-radius:10px;
-    padding:14px 16px;margin-bottom:10px;
+    padding:14px 16px;margin-bottom:12px;
   }
   .card-head{display:flex;gap:12px;align-items:flex-start;}
   .rank{
-    font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--ink);
-    line-height:1;min-width:30px;padding-top:2px;
+    font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--ink);
+    line-height:1;min-width:34px;padding-top:2px;
   }
-  .card-title{font-size:15px;font-weight:600;color:var(--ink);line-height:1.4;}
+  .card-title{font-size:15.5px;font-weight:600;color:var(--ink);line-height:1.4;}
   a.card-title{text-decoration:none;cursor:pointer;transition:color .2s;}
   a.card-title:hover{color:var(--orange);text-decoration:underline;text-underline-offset:3px;}
-  .card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px;}
+  .card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:5px;}
   .chip-cat{font-size:11px;background:rgba(43,33,26,.08);color:var(--ink);border-radius:999px;padding:1px 9px;}
   .heat{
     font-size:11px;background:rgba(232,100,44,.14);color:var(--orange-deep);
     border-radius:999px;padding:1px 9px;font-weight:500;
   }
   .heat.na{background:rgba(107,114,128,.12);color:var(--sub);}
-  .tag-badge{
-    font-size:11px;padding:1px 9px;border-radius:999px;font-weight:500;
-  }
-  .tag-angle{background:rgba(31,122,92,.12);color:#176A4E;}
-  .tag-no{background:rgba(107,114,128,.12);color:var(--sub);}
-  .tag-guard{background:rgba(176,58,46,.1);color:var(--red);}
-  .sum{font-size:12.5px;color:var(--sub);margin-top:8px;line-height:1.65;}
+  .sum{font-size:12.5px;color:var(--sub);margin-top:9px;line-height:1.65;}
   .angle{
-    margin-top:8px;background:#FCF5EE;border-left:3px solid var(--orange);
+    margin-top:9px;background:#FCF5EE;border-left:3px solid var(--orange);
     border-radius:0 8px 8px 0;padding:8px 12px;font-size:12.5px;color:var(--text);
     line-height:1.65;
   }
@@ -116,17 +126,151 @@
 
   /* ===== 底部 ===== */
   footer{
-    margin-top:30px;border-top:1px solid var(--line);padding-top:14px;
+    margin-top:34px;border-top:1px solid var(--line);padding-top:16px;
     font-size:11.5px;color:var(--sub);line-height:1.8;
   }
   footer b{color:var(--ink);font-weight:600;}
+  .empty{text-align:center;color:var(--sub);padding:40px 0;font-size:13px;}
+
+  /* ===== Apple 风格优化 ===== */
+  header{
+    backdrop-filter:blur(20px) saturate(180%);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
+    background:rgba(28,18,11,0.85);
+  }
+  .card{
+    transition:transform .35s cubic-bezier(.4,0,.2,1),box-shadow .35s cubic-bezier(.4,0,.2,1),border-color .35s;
+    box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.03);
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 30px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.04);
+    border-color:rgba(232,100,44,.25);
+  }
+  .t3{
+    transition:transform .35s cubic-bezier(.4,0,.2,1),box-shadow .35s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.03);
+  }
+  .t3:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 32px rgba(232,100,44,.12),0 3px 10px rgba(0,0,0,.05);
+  }
+  .filter-btn,.cat-btn{transition:all .28s cubic-bezier(.4,0,.2,1);cursor:pointer;}
+  .filter-btn:hover,.cat-btn:hover{transform:translateY(-1px);}
+  .filter-btn.active,.cat-btn.active{transform:scale(1.02);}
+  .asset{transition:all .25s ease;cursor:default;}
+  .asset:hover{border-color:var(--orange);color:var(--orange);}
+  .rank{transition:transform .3s cubic-bezier(.4,0,.2,1);}
+  .card:hover .rank{transform:scale(1.08);}
+  .card,.t3{opacity:0;transform:translateY(12px);animation:fadeUp .5s cubic-bezier(.4,0,.2,1) forwards;}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+  .card:hover{animation:none;opacity:1;transform:translateY(-3px);}
+
+  /* ===== P0 功能 ===== */
+  .ctrl-row-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .sort-wrap{display:flex;align-items:center;gap:8px;}
+  .sort-select{
+    padding:6px 12px;border:1px solid var(--line);border-radius:8px;
+    background:var(--card);color:var(--text);font-size:12.5px;cursor:pointer;
+    transition:border-color .25s,box-shadow .25s;
+  }
+  .sort-select:hover{border-color:var(--orange);box-shadow:0 2px 8px rgba(232,100,44,.1);}
+  .sort-select:focus{outline:none;border-color:var(--orange);}
+  .export-wrap{display:flex;gap:8px;flex-wrap:wrap;}
+  .export-btn{
+    padding:6px 14px;border:1px solid var(--line);border-radius:8px;
+    background:var(--card);color:var(--text);font-size:12px;cursor:pointer;
+    transition:all .25s cubic-bezier(.4,0,.2,1);
+  }
+  .export-btn:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-1px);box-shadow:0 4px 12px rgba(232,100,44,.12);}
+  .pri{
+    font-size:11px;padding:2px 8px;border-radius:999px;
+    background:rgba(107,114,128,.1);color:var(--sub);font-weight:500;
+  }
+  .pri-mid{background:rgba(245,158,11,.12);color:#B45309;}
+  .pri-high{background:rgba(232,100,44,.12);color:var(--orange-deep);font-weight:600;}
+  .angle{position:relative;}
+  .copy-btn{
+    position:absolute;top:8px;right:8px;
+    padding:3px 10px;border:1px solid var(--line);border-radius:6px;
+    background:var(--card);color:var(--sub);font-size:11px;cursor:pointer;
+    transition:all .2s;opacity:0;
+  }
+  .card:hover .copy-btn{opacity:1;}
+  .copy-btn:hover{border-color:var(--orange);color:var(--orange);}
+  .copy-btn.copied{background:var(--orange);color:#fff;border-color:var(--orange);}
+
+  /* ===== 内容模板 & 优先级 & 生命周期 ===== */
+  .expand-btn{
+    padding:4px 12px;border:1px solid var(--line);border-radius:999px;
+    background:transparent;color:var(--sub);font-size:11px;cursor:pointer;
+    transition:all .25s;flex-shrink:0;align-self:center;
+  }
+  .expand-btn:hover{border-color:var(--orange);color:var(--orange);}
+  .card.expanded .expand-btn{border-color:var(--orange);color:var(--orange);background:rgba(232,100,44,.06);}
+  .life-badge{
+    font-size:10px;padding:2px 7px;border-radius:999px;
+    background:rgba(31,122,92,.1);color:#176A4E;font-weight:500;
+  }
+  .pri-bar{
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    padding:8px 0;margin-top:-4px;
+  }
+  .pri-bar-item{display:flex;align-items:center;gap:6px;}
+  .pri-bar-label{font-size:10px;color:var(--sub);width:24px;flex-shrink:0;}
+  .pri-bar-track{width:50px;height:5px;background:rgba(0,0,0,.06);border-radius:999px;overflow:hidden;}
+  .pri-bar-fill{height:100%;border-radius:999px;transition:width .5s ease;}
+  .heat-fill{background:linear-gradient(90deg,#f59e0b,#ef4444);}
+  .fit-fill{background:linear-gradient(90deg,var(--orange),var(--orange-deep));}
+  .pri-bar-val{font-size:10px;color:var(--sub);font-weight:600;width:18px;}
+  .pri-trend{display:flex;align-items:center;gap:6px;margin-left:auto;}
+  .spark{opacity:.7;}
+  .trend-label{font-size:10px;color:var(--sub);}
+  .card-detail{
+    max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease,margin .4s ease;
+    padding:0 16px;margin-top:0;border-top:1px solid transparent;
+  }
+  .card-detail.open{
+    max-height:2400px;padding:16px;margin-top:8px;border-top-color:var(--line);
+    background:rgba(232,100,44,.02);
+  }
+  .detail-section{margin-bottom:14px;}
+  .detail-section:last-child{margin-bottom:0;}
+  .detail-title{
+    font-size:11px;font-weight:600;color:var(--orange-deep);
+    text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .detail-title::before{content:"";width:3px;height:12px;background:var(--orange);border-radius:2px;}
+  .detail-text{font-size:12.5px;line-height:1.7;color:var(--text);}
+  .detail-text.marketing{background:rgba(232,100,44,.05);padding:10px 12px;border-radius:8px;border-left:3px solid var(--orange);}
+  .detail-text.distribution{background:rgba(31,122,92,.06);padding:10px 12px;border-radius:8px;border-left:3px solid var(--teal);}
+  .detail-text.platform{background:rgba(59,130,246,.05);padding:10px 12px;border-radius:8px;border-left:3px solid #3b82f6;}
+  .detail-text.director{background:rgba(139,92,246,.06);padding:10px 12px;border-radius:8px;border-left:3px solid #8b5cf6;}
+  .detail-titles{display:flex;flex-direction:column;gap:6px;}
+  .detail-title-item{
+    display:flex;align-items:flex-start;gap:8px;
+    font-size:12.5px;line-height:1.6;padding:8px 10px;
+    background:var(--bg);border-radius:8px;border:1px solid var(--line);
+  }
+  .title-num{
+    flex-shrink:0;width:20px;height:20px;border-radius:50%;
+    background:var(--orange);color:#fff;font-size:10px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;margin-top:1px;
+  }
+  .detail-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .detail-tag{
+    font-size:11px;padding:3px 10px;border-radius:999px;
+    background:rgba(232,100,44,.08);color:var(--orange-deep);
+    border:1px solid rgba(232,100,44,.15);
+  }
 
   @media (max-width:520px){
-    .brand-en{font-size:18px;letter-spacing:3px;}
-    .tagline{font-size:14px;}
-    .sec-title h2{font-size:17px;}
-    .card-title{font-size:14px;}
-    .rank{font-size:18px;min-width:26px;}
+    .brand-en{font-size:20px;letter-spacing:3px;}
+    .tagline{font-size:15px;}
+    .sec-title h2{font-size:18px;}
+    .card-title{font-size:14.5px;}
+    .rank{font-size:19px;min-width:28px;}
   }
 
 </style>
@@ -142,7 +286,7 @@
     <div class="meta-line">
       <span>2026年9月14日 星期一</span><span class="dot"></span>
       <span>数据源：抖音热榜 / 小红书热搜</span><span class="dot"></span>
-      <span>每日 10:00 / 15:00 自动更新</span>
+      <span>每日 10:00 自动更新</span>
     </div>
     <div class="tagline">气血丰盈地瘦 · 快乐老狗不走捷径 —— 博主 × 双平台每日热点结合</div>
     <div class="assets">
@@ -165,28 +309,56 @@
 
   <section class="sec-title">
     <h2>分平台热点 × 借势建议</h2>
-    <span>完整收录当日双平台热榜（抖音 50 / 小红书 20），按各平台原始排名展示</span>
+    <span>完整收录当日双平台热榜（抖音 50 / 小红书 20），按各平台原始排名展示，不做筛选；每条建议以专业编导视角生成，发布前请运营与合规审核</span>
   </section>
 
-  <div class="tabs" id="tabs"></div>
+  <div class="controls">
+    <div class="tabs" id="tabs"></div>
+    <div class="ctrl-row"><span class="ctrl-label">推荐类型</span><div class="chips" id="rec-chips"></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">内容类型</span><div class="chips" id="cat-chips"></div></div>
+    <div class="ctrl-row ctrl-row-bottom">
+      <div class="sort-wrap">
+        <span class="ctrl-label">排序</span>
+        <select class="sort-select" id="sort-select">
+          <option value="rank">按排名</option>
+          <option value="heat">按热度</option>
+          <option value="priority">按优先级</option>
+        </select>
+      </div>
+      <div class="export-wrap">
+        <button class="export-btn" id="export-csv">导出 CSV</button>
+        <button class="export-btn" id="export-md">复制为表格</button>
+        <button class="export-btn" id="export-top3">复制 TOP3 简报</button>
+      </div>
+    </div>
+    <div class="count-hint" id="count"></div>
+  </div>
+
   <section id="list"></section>
 
   <footer>
-    <b>数据说明</b>：本看板完整收录当日抖音热榜 50 条 / 小红书热搜 20 条，未做筛选，按各平台原始榜单排名展示；榜单抓取自公开聚合源，热度值为各源参考值，随榜单实时波动。<br>
-    <b>借势建议</b>：基于博主「丁阿姨又瘦啦」的人设资历按话题分类生成；「借势角度」为强相关/可承接话题，「不推荐借势」为弱相关话题并附客观理由，「克制建议」为敏感或社会事件，建议经合规审批后低调执行。所有建议遵循：不制造身材焦虑、不贩卖焦虑、不消费医疗个案、不承诺效果。<br>
-    <b>更新机制</b>：本看板每日 10:00 / 15:00（北京时间）自动重跑生成当日版本。
+    <b>数据说明</b>：本看板完整收录当日抖音热榜 50 条 / 小红书热搜 20 条，未做筛选，按各平台原始榜单排名展示；榜单抓取自公开聚合源（86TOOL hot-rank 抖音/小红书热搜榜），抓取时间 2026年9月14日 星期一 上午；热度值为各源参考值，随榜单实时波动。<br>
+    <b>借势建议</b>：基于博主「丁阿姨又瘦啦」的人设资历（胖 30 年阿姨第 3 次减脂成功 · 体脂 40%→23% · 气血丰盈地瘦）按话题分类生成；「借势角度」为强相关/可承接话题并附编导执行与内容模板，「不推荐借势」为弱相关话题并附客观理由，「克制建议」为敏感、医疗个案或社会事件，建议不借势或经合规审批后低调执行。所有建议遵循：不制造身材焦虑、不贩卖焦虑、不消费医疗个案、不承诺效果、不用极端减脂方法。<br>
+    <b>更新机制</b>：本看板每日 10:00 自动重跑生成当日版本，数据与建议随当日热榜更新。
   </footer>
 </main>
 
 <script>
 (function(){
   "use strict";
-  var DATA = {"douyin": [{"rank": 1, "title": "中国男篮三连胜头名出线", "cat": "体育赛事", "heat": "1214万", "sum": "男篮三连胜头名出线", "tag": "no", "angle": "属于体育赛事类热点，和减脂、饮食、养生变美无任何承接点，不符合博主内容定位，不适合硬蹭。", "plat": "douyin"}, {"rank": 2, "title": "英超承认哈兰德进球判罚存失误", "cat": "生活方式", "heat": "1109万", "sum": "英超承认哈兰德进球判罚存失误", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 3, "title": "五天服贸会交出亮眼成绩单", "cat": "生活方式", "heat": "1105万", "sum": "五天服贸会交出亮眼成绩单", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 4, "title": "全国地标被大学生玩明白了", "cat": "生活方式", "heat": "1089万", "sum": "全国地标被大学生玩明白了", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 5, "title": "东北入秋的仪式是一锅酱大骨", "cat": "生活方式", "heat": "993.8万", "sum": "入秋仪式吃酱大骨", "tag": "angle", "angle": "抖音做实拍口播短视频，结合入秋贴秋膘怕长胖的大众痛点，切入减脂期也能放心吃的酱大骨家常改良做法，贴合丁阿姨不饿瘦、接地气的减脂人设，做家常减脂食谱教程。", "plat": "douyin"}, {"rank": 6, "title": "演唱会是成年人的童话", "cat": "生活方式", "heat": "990.1万", "sum": "演唱会是成年人的童话", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 7, "title": "王曼昱登顶女单世界第一", "cat": "生活方式", "heat": "864.4万", "sum": "王曼昱登顶女单世界第一", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 8, "title": "准备礼物的快乐总是先到一步", "cat": "生活方式", "heat": "830.9万", "sum": "准备礼物的快乐总是先到一步", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 9, "title": "全球市场迎\"超级央行周\"", "cat": "生活方式", "heat": "824.6万", "sum": "全球市场迎\"超级央行周\"", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 10, "title": "中国足球小将西班牙捧杯", "cat": "生活方式", "heat": "809.8万", "sum": "中国足球小将西班牙捧杯", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 11, "title": "当我不小心染上蔡徐坤审美穿搭", "cat": "生活方式", "heat": "808.1万", "sum": "当我不小心染上蔡徐坤审美穿搭", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 12, "title": "在贷款和全款中选择拍同款", "cat": "生活方式", "heat": "779.4万", "sum": "在贷款和全款中选择拍同款", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 13, "title": "双创指数均跌超1%", "cat": "生活方式", "heat": "779.3万", "sum": "双创指数均跌超1%", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 14, "title": "求职诈骗套路揭秘", "cat": "生活方式", "heat": "778.2万", "sum": "求职诈骗套路揭秘", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 15, "title": "网红暴躁的小张姥娘离世", "cat": "社会事件", "heat": "777.9万", "sum": "网红小张姥娘离世", "tag": "guard", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 16, "title": "一瓯春定档0917", "cat": "生活方式", "heat": "775.7万", "sum": "一瓯春定档0917", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 17, "title": "曼联0:1曼城", "cat": "生活方式", "heat": "775.5万", "sum": "曼联0:1曼城", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 18, "title": "怎么到处都是尴尬狗", "cat": "生活方式", "heat": "775.2万", "sum": "怎么到处都是尴尬狗", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 19, "title": "早春晴朗迎来收官", "cat": "生活方式", "heat": "775.1万", "sum": "早春晴朗迎来收官", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 20, "title": "绝不承认手机妈对我的印象", "cat": "生活方式", "heat": "775万", "sum": "绝不承认手机妈对我的印象", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 21, "title": "biubiubiu小猫朝我跑来", "cat": "生活方式", "heat": "774.9万", "sum": "biubiubiu小猫朝我跑来", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 22, "title": "原来上世纪国产电器就这么先进了", "cat": "生活方式", "heat": "774.8万", "sum": "原来上世纪国产电器就这么先进了", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 23, "title": "给萌宠举办一场发布会", "cat": "生活方式", "heat": "774.6万", "sum": "给萌宠举办一场发布会", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 24, "title": "兰香如故九皋这么美要迷死谁", "cat": "生活方式", "heat": "774.4万", "sum": "兰香如故九皋这么美要迷死谁", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 25, "title": "兰香如故热度破28000", "cat": "生活方式", "heat": "774万", "sum": "兰香如故热度破28000", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 26, "title": "发明猪咪可爱颂的人简直是天才", "cat": "生活方式", "heat": "773.5万", "sum": "发明猪咪可爱颂的人简直是天才", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 27, "title": "一代人有一代人的呆毛潮流", "cat": "生活方式", "heat": "773.1万", "sum": "一代人有一代人的呆毛潮流", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 28, "title": "iOS 27明日正式更新", "cat": "生活方式", "heat": "771.2万", "sum": "iOS 27明日正式更新", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 29, "title": "威龙爆闪转场挑战", "cat": "生活方式", "heat": "770.8万", "sum": "威龙爆闪转场挑战", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 30, "title": "细扒兰香如故前6集细节", "cat": "生活方式", "heat": "770.5万", "sum": "细扒兰香如故前6集细节", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 31, "title": "孩子第一次上学belike", "cat": "生活方式", "heat": "768.6万", "sum": "孩子第一次上学belike", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 32, "title": "席琳迪翁重返演唱会舞台", "cat": "生活方式", "heat": "768.5万", "sum": "席琳迪翁重返演唱会舞台", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 33, "title": "小胖夺冠后发抖音", "cat": "生活方式", "heat": "768.5万", "sum": "小胖夺冠后发抖音", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 34, "title": "赵雷我记得以儿子视角创作", "cat": "生活方式", "heat": "768.4万", "sum": "赵雷我记得以儿子视角创作", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 35, "title": "iPhone Duo研究了些什么", "cat": "生活方式", "heat": "768.2万", "sum": "iPhone Duo研究了些什么", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 36, "title": "我在抖音完全嗑到许兰香和九皋", "cat": "生活方式", "heat": "767.9万", "sum": "我在抖音完全嗑到许兰香和九皋", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 37, "title": "宋威龙寻找洲同学", "cat": "生活方式", "heat": "767.5万", "sum": "宋威龙寻找洲同学", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 38, "title": "这一套不知道你顶不顶得住", "cat": "生活方式", "heat": "767.1万", "sum": "这一套不知道你顶不顶得住", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 39, "title": "BGM一响山河都有了宿命感", "cat": "生活方式", "heat": "766.8万", "sum": "BGM一响山河都有了宿命感", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 40, "title": "夏日入侵企画KPL夏决演出", "cat": "生活方式", "heat": "766.7万", "sum": "夏日入侵企画KPL夏决演出", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 41, "title": "跟着李白游南京", "cat": "生活方式", "heat": "765.9万", "sum": "跟着李白游南京", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 42, "title": "Lost盘旋手势舞", "cat": "生活方式", "heat": "765.7万", "sum": "Lost盘旋手势舞", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 43, "title": "当我一口气看完一部动漫", "cat": "生活方式", "heat": "765.5万", "sum": "当我一口气看完一部动漫", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 44, "title": "洛天依原创歌曲终冕发布", "cat": "生活方式", "heat": "765.5万", "sum": "洛天依原创歌曲终冕发布", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 45, "title": "来重庆的快乐从一碗小面开始", "cat": "生活方式", "heat": "764.4万", "sum": "重庆快乐始于一碗小面", "tag": "angle", "angle": "抖音做口播实拍短视频，结合秋季旅游逛吃怕涨秤的痛点，切入减脂期下馆子点小面的技巧，贴合博主可持续减脂的接地气人设，做逛吃减脂点菜攻略。", "plat": "douyin"}, {"rank": 46, "title": "跟陈小春演唱会逛吃哈尔滨", "cat": "生活方式", "heat": "764.3万", "sum": "跟演唱会逛吃哈尔滨", "tag": "angle", "angle": "抖音做口播清单短视频，结合追星逛吃怕涨胖的痛点，做哈尔滨逛吃的减脂点菜指南，贴合丁阿姨快乐减脂不焦虑的人设，拓展逛吃减脂内容场景。", "plat": "douyin"}, {"rank": 47, "title": "兰香如故林府人均舞王来的", "cat": "生活方式", "heat": "764.2万", "sum": "兰香如故林府人均舞王来的", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 48, "title": "三十人组团拍摄还原神仙朝元大典", "cat": "生活方式", "heat": "764万", "sum": "三十人组团拍摄还原神仙朝元大典", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 49, "title": "兰香如故抖音安利大赛", "cat": "生活方式", "heat": "764万", "sum": "兰香如故抖音安利大赛", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}, {"rank": 50, "title": "兰香如故陈创手写角色金句", "cat": "生活方式", "heat": "763.9万", "sum": "兰香如故陈创手写角色金句", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "plat": "douyin"}], "xhs": [{"rank": 1, "title": "用万能旅行拍照姿势美美出片", "cat": "生活方式", "heat": "947.5万", "sum": "分享万能旅行拍照姿势", "tag": "no", "angle": "与博主减脂、饮食、养生变美垂直定位无核心承接点，硬蹭偏离目标受众需求，不符合人设定位", "plat": "xhs"}, {"rank": 2, "title": "耗时三年拍下古诗词里的中国", "cat": "生活方式", "heat": "934.8万", "sum": "拍下古诗词里的中国风景", "tag": "no", "angle": "无和减脂养生变美相关的承接点，硬蹭会偏离垂直内容定位", "plat": "xhs"}, {"rank": 3, "title": "我拍到了海鸥雨", "cat": "生活方式", "heat": "903.2万", "sum": "拍摄海鸥雨自然景观", "tag": "no", "angle": "无垂直内容承接点，硬蹭不符合博主减脂博主的定位", "plat": "xhs"}, {"rank": 4, "title": "超日常美食教程速来get", "cat": "生活方式", "heat": "886万", "sum": "分享超日常减脂版美食教程", "tag": "angle", "angle": "内容形式为小红书图文教程体，切入热点大众对日常美食的需求，结合博主家常减脂饮食方法论，做低卡不胖的减脂版日常美食，面向想减脂又不想饿肚子的姐姐，符合气血丰盈不饿瘦、接地气的人设定位。", "plat": "xhs"}, {"rank": 5, "title": "定格这一刻的日照金山", "cat": "生活方式", "heat": "871.1万", "sum": "定格日照金山美景", "tag": "no", "angle": "无减脂养生相关承接点，不适合硬蹭", "plat": "xhs"}, {"rank": 6, "title": "你可以永远相信赛里木湖的美景", "cat": "生活方式", "heat": "783.1万", "sum": "分享赛里木湖美景", "tag": "no", "angle": "无垂直内容承接点，硬蹭偏离定位", "plat": "xhs"}, {"rank": 7, "title": "拼豆上也可以作画了", "cat": "生活方式", "heat": "749.8万", "sum": "分享拼豆作画创意", "tag": "no", "angle": "无减脂养生相关承接点，不适合借势", "plat": "xhs"}, {"rank": 8, "title": "我的家庭旅行更像是打副本", "cat": "情感话题", "heat": "737.1万", "sum": "分享家庭旅行趣事", "tag": "no", "angle": "无减脂养生核心承接点，硬蹭对账号增长无帮助", "plat": "xhs"}, {"rank": 9, "title": "原来古诗词里的河南真的存在", "cat": "生活方式", "heat": "727.8万", "sum": "探访古诗词里的河南", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "plat": "xhs"}, {"rank": 10, "title": "蒸出了奶香爆米花馒头", "cat": "生活方式", "heat": "716.2万", "sum": "减脂版奶香爆米花馒头做法", "tag": "angle", "angle": "内容形式为小红书图文教程体，切入网红奶香爆米花馒头的热点流量，结合博主主食替换、控糖减脂的饮食方法论，改造出低升糖减脂版，适合减脂期想吃主食的姐姐，符合接地气不饿瘦的人设调性。", "plat": "xhs"}, {"rank": 11, "title": "这可能是江西最被低估的一座山", "cat": "生活方式", "heat": "703万", "sum": "推荐江西小众山峰", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "plat": "xhs"}, {"rank": 12, "title": "海边日落赴一场温柔约会", "cat": "生活方式", "heat": "689.4万", "sum": "分享海边日落美景", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "plat": "xhs"}, {"rank": 13, "title": "拼豆也能当火漆印章玩", "cat": "生活方式", "heat": "241.7万", "sum": "分享拼豆新玩法", "tag": "no", "angle": "无减脂养生相关承接点，不适合借势", "plat": "xhs"}, {"rank": 14, "title": "我创造了新型遛狗法", "cat": "生活方式", "heat": "231.8万", "sum": "分享新型遛狗方法", "tag": "no", "angle": "无减脂养生核心承接点，不适合借势", "plat": "xhs"}, {"rank": 15, "title": "用镜头捕捉四季如画", "cat": "生活方式", "heat": "222.8万", "sum": "分享四季美景照片", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "plat": "xhs"}, {"rank": 16, "title": "笔墨重现课本诗意", "cat": "生活方式", "heat": "213.5万", "sum": "笔墨重现课本诗意", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "plat": "xhs"}, {"rank": 17, "title": "拍到了洱海的丁达尔效应", "cat": "生活方式", "heat": "203.3万", "sum": "拍摄洱海丁达尔效应", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "plat": "xhs"}, {"rank": 18, "title": "珠圆玉润妆完全是淡颜天菜", "cat": "生活方式", "heat": "193.8万", "sum": "瘦不垮脸珠圆玉润妆技巧", "tag": "angle", "angle": "内容形式为小红书图文封面党教程，切入珠圆玉润妆的热点流量，结合博主瘦下来不垮脸的核心卖点，给减脂后脸松的姐姐分享适配妆容，符合养生变美人设，不制造焦虑，契合受众需求。", "plat": "xhs"}, {"rank": 19, "title": "碎钻美甲指尖藏着细碎星光", "cat": "时尚穿搭", "heat": "184.5万", "sum": "分享碎钻美甲款式", "tag": "no", "angle": "与博主垂直定位无核心承接点，硬蹭偏离目标受众需求", "plat": "xhs"}, {"rank": 20, "title": "我来当旅行中的颜色猎手", "cat": "生活方式", "heat": "175.7万", "sum": "分享旅行色彩捕捉", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "plat": "xhs"}]};
+  var DATA = {"douyin": [{"rank": 1, "title": "中国男篮三连胜头名出线", "cat": "体育赛事", "heat": "1214万", "sum": "男篮三连胜头名出线", "tag": "no", "angle": "属于体育赛事类热点，和减脂、饮食、养生变美无任何承接点，不符合博主内容定位，不适合硬蹭。", "content_template": null, "priority": 60, "heat_score": 50, "fit_score": 10, "life_days": 2, "heat_trend": ["12137163", 12137163.0], "plat": "douyin"}, {"rank": 2, "title": "英超承认哈兰德进球判罚存失误", "cat": "生活方式", "heat": "1109万", "sum": "英超承认哈兰德进球判罚存失误", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 55, "heat_score": 45, "fit_score": 10, "life_days": 2, "heat_trend": ["11094632", 11094632.0], "plat": "douyin"}, {"rank": 3, "title": "五天服贸会交出亮眼成绩单", "cat": "生活方式", "heat": "1105万", "sum": "五天服贸会交出亮眼成绩单", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 55, "heat_score": 45, "fit_score": 10, "life_days": 2, "heat_trend": ["11053937", 11053937.0], "plat": "douyin"}, {"rank": 4, "title": "全国地标被大学生玩明白了", "cat": "生活方式", "heat": "1089万", "sum": "全国地标被大学生玩明白了", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 54, "heat_score": 44, "fit_score": 10, "life_days": 2, "heat_trend": ["10889649", 10889649.0], "plat": "douyin"}, {"rank": 5, "title": "东北入秋的仪式是一锅酱大骨", "cat": "生活方式", "heat": "993.8万", "sum": "入秋仪式吃酱大骨", "tag": "angle", "angle": "抖音做实拍口播短视频，结合入秋贴秋膘怕长胖的大众痛点，切入减脂期也能放心吃的酱大骨家常改良做法，贴合丁阿姨不饿瘦、接地气的减脂人设，做家常减脂食谱教程。", "content_template": {"titles": ["入秋吃酱大骨，减脂期也能放心吃！", "减脂版酱大骨，贴秋膘不涨秤", "瘦了22斤，我这么做酱大骨"], "copy_direction": "开头钩子“入秋就想吃酱大骨？减脂期不敢碰？今天教你贴秋膘还不胖的做法”，中间讲控盐控油的家常改良步骤，结尾提问引导观众留言互动。", "tags": ["#东北入秋仪式感", "#减脂家常菜谱", "#不饿肚子减肥", "#气血减脂"], "director_notes": "拍摄场景选自家厨房，开头3秒拿做好的酱大骨怼脸拍做钩子，中间拍备菜制作步骤特写，字幕标注核心要点，结尾对着镜头互动，合规检查：不夸大效果，不提倡极端节食，符合人设。", "distribution": "抖音选午间11点半饭点发布，带上热榜话题，评论区置顶提问引导互动，直播承接讲解家常减脂答疑；小红书发图文步骤版，做成种草教程，双平台差异化分发。", "marketing_analysis": "热点贴合入秋贴秋膘的大众需求，目标受众正是25-60岁想减脂又想吃的目标姐姐群体，帮博主强化家常不饿瘦的人设，贴合受众痛点提升互动涨粉，长期巩固可持续减脂的标签。", "platform_fit": "抖音用户偏好接地气的家常美食减脂内容，饭点流量大盘高，热点自带搜索流量，口播实拍形式完播率高，契合算法推流逻辑，贴合丁阿姨接地气的阿姨人设，容易引发信任。"}, "priority": 89, "heat_score": 39, "fit_score": 50, "life_days": 2, "heat_trend": ["9937744", 9937744.0], "plat": "douyin"}, {"rank": 6, "title": "演唱会是成年人的童话", "cat": "生活方式", "heat": "990.1万", "sum": "演唱会是成年人的童话", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 49, "heat_score": 39, "fit_score": 10, "life_days": 2, "heat_trend": ["9901389", 9901389.0], "plat": "douyin"}, {"rank": 7, "title": "王曼昱登顶女单世界第一", "cat": "生活方式", "heat": "864.4万", "sum": "王曼昱登顶女单世界第一", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 43, "heat_score": 33, "fit_score": 10, "life_days": 2, "heat_trend": ["8644338", 8644338.0], "plat": "douyin"}, {"rank": 8, "title": "准备礼物的快乐总是先到一步", "cat": "生活方式", "heat": "830.9万", "sum": "准备礼物的快乐总是先到一步", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 42, "heat_score": 32, "fit_score": 10, "life_days": 2, "heat_trend": ["8309403", 8309403.0], "plat": "douyin"}, {"rank": 9, "title": "全球市场迎\"超级央行周\"", "cat": "生活方式", "heat": "824.6万", "sum": "全球市场迎\"超级央行周\"", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 41, "heat_score": 31, "fit_score": 10, "life_days": 2, "heat_trend": ["8245679", 8245679.0], "plat": "douyin"}, {"rank": 10, "title": "中国足球小将西班牙捧杯", "cat": "生活方式", "heat": "809.8万", "sum": "中国足球小将西班牙捧杯", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 41, "heat_score": 31, "fit_score": 10, "life_days": 2, "heat_trend": ["8098213", 8098213.0], "plat": "douyin"}, {"rank": 11, "title": "当我不小心染上蔡徐坤审美穿搭", "cat": "生活方式", "heat": "808.1万", "sum": "当我不小心染上蔡徐坤审美穿搭", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 40, "heat_score": 30, "fit_score": 10, "life_days": 2, "heat_trend": ["8080839", 8080839.0], "plat": "douyin"}, {"rank": 12, "title": "在贷款和全款中选择拍同款", "cat": "生活方式", "heat": "779.4万", "sum": "在贷款和全款中选择拍同款", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7793893", 7793893.0], "plat": "douyin"}, {"rank": 13, "title": "双创指数均跌超1%", "cat": "生活方式", "heat": "779.3万", "sum": "双创指数均跌超1%", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7793279", 7793279.0], "plat": "douyin"}, {"rank": 14, "title": "求职诈骗套路揭秘", "cat": "生活方式", "heat": "778.2万", "sum": "求职诈骗套路揭秘", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7782073", 7782073.0], "plat": "douyin"}, {"rank": 15, "title": "网红暴躁的小张姥娘离世", "cat": "社会事件", "heat": "777.9万", "sum": "网红小张姥娘离世", "tag": "guard", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 34, "heat_score": 29, "fit_score": 5, "life_days": 2, "heat_trend": ["7778545", 7778545.0], "plat": "douyin"}, {"rank": 16, "title": "一瓯春定档0917", "cat": "生活方式", "heat": "775.7万", "sum": "一瓯春定档0917", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7756692", 7756692.0], "plat": "douyin"}, {"rank": 17, "title": "曼联0:1曼城", "cat": "生活方式", "heat": "775.5万", "sum": "曼联0:1曼城", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7755358", 7755358.0], "plat": "douyin"}, {"rank": 18, "title": "怎么到处都是尴尬狗", "cat": "生活方式", "heat": "775.2万", "sum": "怎么到处都是尴尬狗", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7751847", 7751847.0], "plat": "douyin"}, {"rank": 19, "title": "早春晴朗迎来收官", "cat": "生活方式", "heat": "775.1万", "sum": "早春晴朗迎来收官", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7751328", 7751328.0], "plat": "douyin"}, {"rank": 20, "title": "绝不承认手机妈对我的印象", "cat": "生活方式", "heat": "775万", "sum": "绝不承认手机妈对我的印象", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7750087", 7750087.0], "plat": "douyin"}, {"rank": 21, "title": "biubiubiu小猫朝我跑来", "cat": "生活方式", "heat": "774.9万", "sum": "biubiubiu小猫朝我跑来", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7748586", 7748586.0], "plat": "douyin"}, {"rank": 22, "title": "原来上世纪国产电器就这么先进了", "cat": "生活方式", "heat": "774.8万", "sum": "原来上世纪国产电器就这么先进了", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7747952", 7747952.0], "plat": "douyin"}, {"rank": 23, "title": "给萌宠举办一场发布会", "cat": "生活方式", "heat": "774.6万", "sum": "给萌宠举办一场发布会", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7745755", 7745755.0], "plat": "douyin"}, {"rank": 24, "title": "兰香如故九皋这么美要迷死谁", "cat": "生活方式", "heat": "774.4万", "sum": "兰香如故九皋这么美要迷死谁", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7744304", 7744304.0], "plat": "douyin"}, {"rank": 25, "title": "兰香如故热度破28000", "cat": "生活方式", "heat": "774万", "sum": "兰香如故热度破28000", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7739844", 7739844.0], "plat": "douyin"}, {"rank": 26, "title": "发明猪咪可爱颂的人简直是天才", "cat": "生活方式", "heat": "773.5万", "sum": "发明猪咪可爱颂的人简直是天才", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7735191", 7735191.0], "plat": "douyin"}, {"rank": 27, "title": "一代人有一代人的呆毛潮流", "cat": "生活方式", "heat": "773.1万", "sum": "一代人有一代人的呆毛潮流", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7730846", 7730846.0], "plat": "douyin"}, {"rank": 28, "title": "iOS 27明日正式更新", "cat": "生活方式", "heat": "771.2万", "sum": "iOS 27明日正式更新", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7712282", 7712282.0], "plat": "douyin"}, {"rank": 29, "title": "威龙爆闪转场挑战", "cat": "生活方式", "heat": "770.8万", "sum": "威龙爆闪转场挑战", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7707537", 7707537.0], "plat": "douyin"}, {"rank": 30, "title": "细扒兰香如故前6集细节", "cat": "生活方式", "heat": "770.5万", "sum": "细扒兰香如故前6集细节", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7705229", 7705229.0], "plat": "douyin"}, {"rank": 31, "title": "孩子第一次上学belike", "cat": "生活方式", "heat": "768.6万", "sum": "孩子第一次上学belike", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7685937", 7685937.0], "plat": "douyin"}, {"rank": 32, "title": "席琳迪翁重返演唱会舞台", "cat": "生活方式", "heat": "768.5万", "sum": "席琳迪翁重返演唱会舞台", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7685197", 7685197.0], "plat": "douyin"}, {"rank": 33, "title": "小胖夺冠后发抖音", "cat": "生活方式", "heat": "768.5万", "sum": "小胖夺冠后发抖音", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7684903", 7684903.0], "plat": "douyin"}, {"rank": 34, "title": "赵雷我记得以儿子视角创作", "cat": "生活方式", "heat": "768.4万", "sum": "赵雷我记得以儿子视角创作", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7683575", 7683575.0], "plat": "douyin"}, {"rank": 35, "title": "iPhone Duo研究了些什么", "cat": "生活方式", "heat": "768.2万", "sum": "iPhone Duo研究了些什么", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7681875", 7681875.0], "plat": "douyin"}, {"rank": 36, "title": "我在抖音完全嗑到许兰香和九皋", "cat": "生活方式", "heat": "767.9万", "sum": "我在抖音完全嗑到许兰香和九皋", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7679030", 7679030.0], "plat": "douyin"}, {"rank": 37, "title": "宋威龙寻找洲同学", "cat": "生活方式", "heat": "767.5万", "sum": "宋威龙寻找洲同学", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 2, "heat_trend": ["7675266", 7675266.0], "plat": "douyin"}, {"rank": 38, "title": "这一套不知道你顶不顶得住", "cat": "生活方式", "heat": "767.1万", "sum": "这一套不知道你顶不顶得住", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 2, "heat_trend": ["7670639", 7670639.0], "plat": "douyin"}, {"rank": 39, "title": "BGM一响山河都有了宿命感", "cat": "生活方式", "heat": "766.8万", "sum": "BGM一响山河都有了宿命感", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 2, "heat_trend": ["7667953", 7667953.0], "plat": "douyin"}, {"rank": 40, "title": "夏日入侵企画KPL夏决演出", "cat": "生活方式", "heat": "766.7万", "sum": "夏日入侵企画KPL夏决演出", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 2, "heat_trend": ["7666968", 7666968.0], "plat": "douyin"}, {"rank": 41, "title": "跟着李白游南京", "cat": "生活方式", "heat": "765.9万", "sum": "跟着李白游南京", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 2, "heat_trend": ["7658687", 7658687.0], "plat": "douyin"}, {"rank": 42, "title": "Lost盘旋手势舞", "cat": "生活方式", "heat": "765.7万", "sum": "Lost盘旋手势舞", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 2, "heat_trend": ["7656674", 7656674.0], "plat": "douyin"}, {"rank": 43, "title": "当我一口气看完一部动漫", "cat": "生活方式", "heat": "765.5万", "sum": "当我一口气看完一部动漫", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 2, "heat_trend": ["7655302", 7655302.0], "plat": "douyin"}, {"rank": 44, "title": "洛天依原创歌曲终冕发布", "cat": "生活方式", "heat": "765.5万", "sum": "洛天依原创歌曲终冕发布", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 2, "heat_trend": ["7654980", 7654980.0], "plat": "douyin"}, {"rank": 45, "title": "来重庆的快乐从一碗小面开始", "cat": "生活方式", "heat": "764.4万", "sum": "重庆快乐始于一碗小面", "tag": "angle", "angle": "抖音做口播实拍短视频，结合秋季旅游逛吃怕涨秤的痛点，切入减脂期下馆子点小面的技巧，贴合博主可持续减脂的接地气人设，做逛吃减脂点菜攻略。", "content_template": {"titles": ["来重庆吃小面，减脂期这么点！", "逛吃重庆不涨秤，小面点单技巧", "减脂期旅游，重庆小面放心吃"], "copy_direction": "开头钩子“来重庆旅游的快乐就是一碗小面？减脂期不敢吃？教你点对了随便吃”，中间讲减油换菜的点菜技巧，结尾提问引导观众留言分享。", "tags": ["#来重庆吃小面", "#减脂逛吃攻略", "#不饿瘦减脂", "#控糖饮食"], "director_notes": "拍摄场景选餐桌前，开头3秒放重庆小面成品图做钩子，口播讲点菜技巧，字幕标注核心要点，结尾引导互动，合规检查：不制造焦虑，不夸大效果，符合人设要求。", "distribution": "抖音选上午10点出行流量时段发布，带上热榜话题，评论区置顶“旅游你最担心涨胖吗？”引导互动，直播承接讲解旅游逛吃减脂技巧；小红书发清单体图文攻略，适合种草收藏。", "marketing_analysis": "契合秋季旅游旺季的用户需求，目标受众是想出门旅游又怕涨胖的减脂女性，填补逛吃减脂的内容缺口，帮博主拓展内容场景，提升互动涨粉，强化可持续减脂的人设。", "platform_fit": "抖音用户偏好旅游逛吃类实用内容，热点自带流量，接地气的点菜技巧容易引发收藏转发，口播形式完播率高，契合算法推流，贴合丁阿姨的接地气调性。"}, "priority": 78, "heat_score": 28, "fit_score": 50, "life_days": 2, "heat_trend": ["7644374", 7644374.0], "plat": "douyin"}, {"rank": 46, "title": "跟陈小春演唱会逛吃哈尔滨", "cat": "生活方式", "heat": "764.3万", "sum": "跟演唱会逛吃哈尔滨", "tag": "angle", "angle": "抖音做口播清单短视频，结合追星逛吃怕涨胖的痛点，做哈尔滨逛吃的减脂点菜指南，贴合丁阿姨快乐减脂不焦虑的人设，拓展逛吃减脂内容场景。", "content_template": {"titles": ["逛吃哈尔滨不涨秤，减脂攻略收好", "追演唱会逛吃，减脂期这么吃", "哈尔滨逛吃，瘦了也能随便吃"], "copy_direction": "开头钩子“追演唱会还要逛吃哈尔滨？怕涨胖？教你怎么吃不涨秤”，中间讲哈尔滨特色菜的点菜调整技巧，结尾提问引导观众留言互动。", "tags": ["#逛吃哈尔滨", "#减脂旅游攻略", "#快乐减脂", "#不反弹减脂"], "director_notes": "拍摄场景选客厅茶几前，开头3秒放演唱会逛吃热门截图做钩子，口播讲攻略，字幕标注核心要点，结尾引导互动，合规检查：不制造焦虑，符合人设要求。", "distribution": "抖音选晚间7点休闲流量时段发布，带上热榜话题，评论区置顶提问引导互动，直播承接讲解逛吃减脂小技巧引流直播间；小红书发清单体攻略，适配种草需求。", "marketing_analysis": "热点结合追星+逛吃双重流量，目标受众是25-60岁喜欢追星逛吃又想减脂的目标群体，契合博主快乐不焦虑的调性，拓展内容场景，提升涨粉互动，强化亲民人设。", "platform_fit": "抖音用户偏好娱乐+实用结合的内容，热点自带流量，实用攻略容易引发收藏转发，契合算法推流逻辑，接地气的口播符合丁阿姨的人设，容易获取用户信任。"}, "priority": 78, "heat_score": 28, "fit_score": 50, "life_days": 2, "heat_trend": ["7642868", 7642868.0], "plat": "douyin"}, {"rank": 47, "title": "兰香如故林府人均舞王来的", "cat": "生活方式", "heat": "764.2万", "sum": "兰香如故林府人均舞王来的", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 2, "heat_trend": ["7641534", 7641534.0], "plat": "douyin"}, {"rank": 48, "title": "三十人组团拍摄还原神仙朝元大典", "cat": "生活方式", "heat": "764万", "sum": "三十人组团拍摄还原神仙朝元大典", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 2, "heat_trend": ["7640409", 7640409.0], "plat": "douyin"}, {"rank": 49, "title": "兰香如故抖音安利大赛", "cat": "生活方式", "heat": "764万", "sum": "兰香如故抖音安利大赛", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 2, "heat_trend": ["7639659", 7639659.0], "plat": "douyin"}, {"rank": 50, "title": "兰香如故陈创手写角色金句", "cat": "生活方式", "heat": "763.9万", "sum": "兰香如故陈创手写角色金句", "tag": "no", "angle": "无明确承接点，客观评估后建议不借势。", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 2, "heat_trend": ["7639380", 7639380.0], "plat": "douyin"}], "xhs": [{"rank": 1, "title": "用万能旅行拍照姿势美美出片", "cat": "生活方式", "heat": "947.5万", "sum": "分享万能旅行拍照姿势", "tag": "no", "angle": "与博主减脂、饮食、养生变美垂直定位无核心承接点，硬蹭偏离目标受众需求，不符合人设定位", "content_template": null, "priority": 47, "heat_score": 37, "fit_score": 10, "life_days": 3, "heat_trend": ["9475000", "9475000", 9475000.0], "plat": "xhs"}, {"rank": 2, "title": "耗时三年拍下古诗词里的中国", "cat": "生活方式", "heat": "934.8万", "sum": "拍下古诗词里的中国风景", "tag": "no", "angle": "无和减脂养生变美相关的承接点，硬蹭会偏离垂直内容定位", "content_template": null, "priority": 47, "heat_score": 37, "fit_score": 10, "life_days": 3, "heat_trend": ["9348000", "9348000", 9348000.0], "plat": "xhs"}, {"rank": 3, "title": "我拍到了海鸥雨", "cat": "生活方式", "heat": "903.2万", "sum": "拍摄海鸥雨自然景观", "tag": "no", "angle": "无垂直内容承接点，硬蹭不符合博主减脂博主的定位", "content_template": null, "priority": 45, "heat_score": 35, "fit_score": 10, "life_days": 3, "heat_trend": ["9032000", "9032000", 9032000.0], "plat": "xhs"}, {"rank": 4, "title": "超日常美食教程速来get", "cat": "生活方式", "heat": "886万", "sum": "分享超日常减脂版美食教程", "tag": "angle", "angle": "内容形式为小红书图文教程体，切入热点大众对日常美食的需求，结合博主家常减脂饮食方法论，做低卡不胖的减脂版日常美食，面向想减脂又不想饿肚子的姐姐，符合气血丰盈不饿瘦、接地气的人设定位。", "content_template": {"titles": ["3款超日常减脂美食 好吃不胖还管饱", "减脂不用吃水煮菜！超日常美食教程来了", "超火日常美食｜减脂版也能香到舔盘"], "copy_direction": "开头钩子：谁讲减脂只能啃水煮菜？这几款超日常美食我减脂期天天吃！中间分享3款低卡家常减脂美食的做法，强调控糖管饱，结尾提问互动：你们减脂期最爱吃什么家常菜？", "tags": ["#超日常美食教程", "#减脂家常饭", "#控糖减脂", "#气血丰盈地瘦"], "director_notes": "拍摄场景选自家厨房，开头3秒放成品美食特写，配文字钩子“减脂也能吃的家常菜”，全程拍步骤细节特写，每步加醒目标注，结尾举碗对着镜头互动，合规检查：不夸大效果，不提倡节食，符合人设调性。", "distribution": "小红书选上午10点受众碎片化时间发布，直接带热榜话题蹭流量，评论区置顶“评论区抽1位送我的减脂家常菜清单”，抖音发15秒快剪切条，开头放美食特写钩子引流小红书拿清单，直播间当天加更“减脂家常菜3个技巧”环节承接流量。", "marketing_analysis": "该热点本身自带海量公域流量，目标受众刚好是想减脂又不想饿肚子的25-60岁女性，完全匹配博主核心受众，贴合博主家常可持续减脂的人设，能吸引精准粉，强化“不饿瘦”的标签，为后续好物转化铺垫，短期涨粉长期强化人设。", "platform_fit": "小红书用户本身就爱收藏收藏家常美食教程，该热点自带搜索和推荐流量，图文教程形式方便用户保存反复看，符合小红书种草算法逻辑，能精准推送给关注减脂和美食的垂直受众，点击率和收藏率都会更高。"}, "priority": 84, "heat_score": 34, "fit_score": 50, "life_days": 3, "heat_trend": ["8860000", "8860000", 8860000.0], "plat": "xhs"}, {"rank": 5, "title": "定格这一刻的日照金山", "cat": "生活方式", "heat": "871.1万", "sum": "定格日照金山美景", "tag": "no", "angle": "无减脂养生相关承接点，不适合硬蹭", "content_template": null, "priority": 43, "heat_score": 33, "fit_score": 10, "life_days": 3, "heat_trend": ["8711000", "8711000", 8711000.0], "plat": "xhs"}, {"rank": 6, "title": "你可以永远相信赛里木湖的美景", "cat": "生活方式", "heat": "783.1万", "sum": "分享赛里木湖美景", "tag": "no", "angle": "无垂直内容承接点，硬蹭偏离定位", "content_template": null, "priority": 39, "heat_score": 29, "fit_score": 10, "life_days": 3, "heat_trend": ["7831000", "7831000", 7831000.0], "plat": "xhs"}, {"rank": 7, "title": "拼豆上也可以作画了", "cat": "生活方式", "heat": "749.8万", "sum": "分享拼豆作画创意", "tag": "no", "angle": "无减脂养生相关承接点，不适合借势", "content_template": null, "priority": 38, "heat_score": 28, "fit_score": 10, "life_days": 3, "heat_trend": ["7498000", "7498000", 7498000.0], "plat": "xhs"}, {"rank": 8, "title": "我的家庭旅行更像是打副本", "cat": "情感话题", "heat": "737.1万", "sum": "分享家庭旅行趣事", "tag": "no", "angle": "无减脂养生核心承接点，硬蹭对账号增长无帮助", "content_template": null, "priority": 37, "heat_score": 27, "fit_score": 10, "life_days": 3, "heat_trend": ["7371000", "7371000", 7371000.0], "plat": "xhs"}, {"rank": 9, "title": "原来古诗词里的河南真的存在", "cat": "生活方式", "heat": "727.8万", "sum": "探访古诗词里的河南", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "content_template": null, "priority": 37, "heat_score": 27, "fit_score": 10, "life_days": 3, "heat_trend": ["7278000", "7278000", 7278000.0], "plat": "xhs"}, {"rank": 10, "title": "蒸出了奶香爆米花馒头", "cat": "生活方式", "heat": "716.2万", "sum": "减脂版奶香爆米花馒头做法", "tag": "angle", "angle": "内容形式为小红书图文教程体，切入网红奶香爆米花馒头的热点流量，结合博主主食替换、控糖减脂的饮食方法论，改造出低升糖减脂版，适合减脂期想吃主食的姐姐，符合接地气不饿瘦的人设调性。", "content_template": {"titles": ["减脂也能炫！低卡奶香爆米花馒头", "网红爆米花馒头改减脂版啦", "爆松软奶香馒头 控糖姐妹放心吃"], "copy_direction": "开头钩子：最近爆火的奶香爆米花馒头，丁阿姨改成了减脂控糖版，减脂期想吃馒头的放心炫！中间放原料和步骤，强调杂粮粉替换、低升糖，结尾提问：你们减脂期用什么替换白主食？", "tags": ["#蒸出了奶香爆米花馒头", "#减脂主食", "#控糖饮食", "#气血丰盈地瘦"], "director_notes": "拍摄场景选厨房操作台，开头3秒拍掰开馒头爆开花的拉丝特写，配文字钩子“减脂也能吃的爆馒头”，全程拍步骤特写，结尾咬一口展示口感，引导评论，合规检查：不承诺减重效果，只说适合减脂控糖期，符合调性。", "distribution": "小红书选下午2点发布，带热榜话题蹭流量，评论区置顶放原料克重清单，抖音发30秒制作快剪，突出开花特写钩子引流小红书看完整配方，直播间当天演示揉面技巧，讲减脂主食替换的核心逻辑承接流量。", "marketing_analysis": "该热点是近期家常美食爆款，受众喜欢跟风做网红面点，刚好匹配博主家常减脂的定位，吸引爱吃主食又想减脂的核心受众，涨精准粉的同时，强化博主会改造家常美食、可持续减脂的人设，利于后续主食相关好物转化。", "platform_fit": "小红书用户爱跟风尝试网红家常美食，图文教程方便用户保存配方，符合小红书种草收藏的用户习惯，热点自带推荐流量，算法会推给关注减脂和美食的垂直受众，精准匹配博主目标用户。"}, "priority": 76, "heat_score": 26, "fit_score": 50, "life_days": 3, "heat_trend": ["7162000", "7162000", 7162000.0], "plat": "xhs"}, {"rank": 11, "title": "这可能是江西最被低估的一座山", "cat": "生活方式", "heat": "703万", "sum": "推荐江西小众山峰", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "content_template": null, "priority": 35, "heat_score": 25, "fit_score": 10, "life_days": 3, "heat_trend": ["7030000", "7030000", 7030000.0], "plat": "xhs"}, {"rank": 12, "title": "海边日落赴一场温柔约会", "cat": "生活方式", "heat": "689.4万", "sum": "分享海边日落美景", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "content_template": null, "priority": 35, "heat_score": 25, "fit_score": 10, "life_days": 3, "heat_trend": ["6894000", "6894000", 6894000.0], "plat": "xhs"}, {"rank": 13, "title": "拼豆也能当火漆印章玩", "cat": "生活方式", "heat": "241.7万", "sum": "分享拼豆新玩法", "tag": "no", "angle": "无减脂养生相关承接点，不适合借势", "content_template": null, "priority": 13, "heat_score": 3, "fit_score": 10, "life_days": 3, "heat_trend": ["2417000", "2417000", 2417000.0], "plat": "xhs"}, {"rank": 14, "title": "我创造了新型遛狗法", "cat": "生活方式", "heat": "231.8万", "sum": "分享新型遛狗方法", "tag": "no", "angle": "无减脂养生核心承接点，不适合借势", "content_template": null, "priority": 13, "heat_score": 3, "fit_score": 10, "life_days": 3, "heat_trend": ["2318000", "2318000", 2318000.0], "plat": "xhs"}, {"rank": 15, "title": "用镜头捕捉四季如画", "cat": "生活方式", "heat": "222.8万", "sum": "分享四季美景照片", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "content_template": null, "priority": 12, "heat_score": 2, "fit_score": 10, "life_days": 3, "heat_trend": ["2228000", "2228000", 2228000.0], "plat": "xhs"}, {"rank": 16, "title": "笔墨重现课本诗意", "cat": "生活方式", "heat": "213.5万", "sum": "笔墨重现课本诗意", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "content_template": null, "priority": 12, "heat_score": 2, "fit_score": 10, "life_days": 3, "heat_trend": ["2135000", "2135000", 2135000.0], "plat": "xhs"}, {"rank": 17, "title": "拍到了洱海的丁达尔效应", "cat": "生活方式", "heat": "203.3万", "sum": "拍摄洱海丁达尔效应", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "content_template": null, "priority": 11, "heat_score": 1, "fit_score": 10, "life_days": 3, "heat_trend": ["2033000", "2033000", 2033000.0], "plat": "xhs"}, {"rank": 18, "title": "珠圆玉润妆完全是淡颜天菜", "cat": "生活方式", "heat": "193.8万", "sum": "瘦不垮脸珠圆玉润妆技巧", "tag": "angle", "angle": "内容形式为小红书图文封面党教程，切入珠圆玉润妆的热点流量，结合博主瘦下来不垮脸的核心卖点，给减脂后脸松的姐姐分享适配妆容，符合养生变美人设，不制造焦虑，契合受众需求。", "content_template": {"titles": ["瘦了不垮脸！珠圆玉润妆太适合减脂姐姐", "减脂瘦了脸松？试试这个珠圆玉润妆", "珠圆玉润妆｜瘦了也能气血满满"], "copy_direction": "开头钩子：瘦下来脸松垮？这个珠圆玉润妆太适合我们减脂姐姐了，显气色还不馒化！中间分享化妆步骤，突出膨润气血感，结尾提问：你们瘦下来有没有脸松的困扰？", "tags": ["#珠圆玉润妆", "#减脂变美", "#瘦不垮脸", "#气血养出好状态"], "director_notes": "拍摄场景选客厅化妆台前，封面放减脂前后脸的对比+妆后对比图抓眼，开头3秒怼脸展示瘦了之后不垮的状态，配钩子文字“瘦了脸垮？试试这个妆”，中间分步骤拍特写，结尾微笑互动，合规检查：不制造焦虑，只分享技巧，符合人设。", "distribution": "小红书选晚上7点用户休闲时间发布，带热榜话题蹭流量，评论区置顶提问互动，抖音发15秒对比快剪引流小红书看完整教程，直播间当天加更“减脂后变美保养技巧”环节承接流量。", "marketing_analysis": "该热点刚好贴合博主“瘦下来不垮脸”的核心卖点，命中减脂姐妹瘦了脸松的普遍痛点，能强化博主“气血丰盈地瘦、不垮脸”的人设定位，吸引有同样困扰的目标受众，涨精准粉，长期利于变美好物转化。", "platform_fit": "小红书用户爱跟风尝试新妆容，对比风封面符合小红书用户点击率偏好，热点自带推荐流量，算法会推给关注减脂和变美的垂直受众，精准匹配博主25-60岁女性受众的需求。"}, "priority": 51, "heat_score": 1, "fit_score": 50, "life_days": 3, "heat_trend": ["1938000", "1938000", 1938000.0], "plat": "xhs"}, {"rank": 19, "title": "碎钻美甲指尖藏着细碎星光", "cat": "时尚穿搭", "heat": "184.5万", "sum": "分享碎钻美甲款式", "tag": "no", "angle": "与博主垂直定位无核心承接点，硬蹭偏离目标受众需求", "content_template": null, "priority": 10, "heat_score": 0, "fit_score": 10, "life_days": 3, "heat_trend": ["1845000", "1845000", 1845000.0], "plat": "xhs"}, {"rank": 20, "title": "我来当旅行中的颜色猎手", "cat": "生活方式", "heat": "175.7万", "sum": "分享旅行色彩捕捉", "tag": "no", "angle": "无垂直内容承接点，不适合借势", "content_template": null, "priority": 10, "heat_score": 0, "fit_score": 10, "life_days": 3, "heat_trend": ["1757000", "1757000", 1757000.0], "plat": "xhs"}]};
+  var CATS = ["全部", "时尚穿搭", "体育赛事", "影视综艺", "情感话题", "生活方式", "知识科普", "社会事件", "科技财经", "美食探店", "娱乐八卦"];
   var PLATS = [
     {key:"douyin", name:"抖音热点"},
     {key:"xhs", name:"小红书热搜"}
   ];
-  var state = {plat:"douyin"};
+  var state = {plat:"douyin", rec:"全部", cat:"全部"};
+  var RECS = [
+    {key:"全部", label:"全部"},
+    {key:"angle", label:"借势角度"},
+    {key:"no", label:"不推荐借势"},
+    {key:"guard", label:"克制建议"}
+  ];
 
   function el(tag, cls, html){
     var e = document.createElement(tag);
@@ -213,18 +385,68 @@
     PLATS.forEach(function(p){
       var t = el("button","tab",p.name + " <span style='font-size:11px;opacity:.75'>" + DATA[p.key].length + "</span>");
       if(p.key === state.plat) t.classList.add("active");
-      t.onclick = function(){ state.plat = p.key; renderAll(); };
+      t.onclick = function(){ state.plat = p.key; state.cat = "全部"; renderAll(); };
       box.appendChild(t);
     });
+  }
+
+  function renderRecChips(){
+    var box = document.getElementById("rec-chips");
+    var arr = DATA[state.plat] || [];
+    var cnt = {};
+    arr.forEach(function(x){ cnt[x.tag] = (cnt[x.tag]||0) + 1; });
+    RECS.forEach(function(r){
+      var n = r.key === "全部" ? arr.length : (cnt[r.key] || 0);
+      if(r.key !== "全部" && n === 0) return;
+      var ch = el("button","chip", r.label + "<span class='cnt'>" + n + "</span>");
+      if(state.rec === r.key) ch.classList.add("active");
+      ch.onclick = function(){ state.rec = r.key; renderAll(); };
+      box.appendChild(ch);
+    });
+  }
+
+  function renderCatChips(){
+    var box = document.getElementById("cat-chips");
+    var arr = DATA[state.plat] || [];
+    var cnt = {};
+    arr.forEach(function(x){ cnt[x.cat] = (cnt[x.cat]||0) + 1; });
+    var all = el("button","chip", "全部<span class='cnt'>" + arr.length + "</span>");
+    if(state.cat === "全部") all.classList.add("active");
+    all.onclick = function(){ state.cat = "全部"; renderAll(); };
+    box.appendChild(all);
+    CATS.forEach(function(c){
+      var n = cnt[c] || 0;
+      if(n === 0) return;
+      var ch = el("button","chip", c + "<span class='cnt'>" + n + "</span>");
+      if(state.cat === c) ch.classList.add("active");
+      ch.onclick = function(){ state.cat = c; renderAll(); };
+      box.appendChild(ch);
+    });
+  }
+
+  function sparkline(data, w, h){
+    if(!data || data.length < 2) return "";
+    var max = Math.max.apply(null, data), min = Math.min.apply(null, data);
+    var range = max - min || 1;
+    var pts = data.map(function(v, i){
+      var x = (i / (data.length - 1)) * (w - 4) + 2;
+      var y = h - 2 - ((v - min) / range) * (h - 4);
+      return x.toFixed(1) + "," + y.toFixed(1);
+    }).join(" ");
+    return '<svg class="spark" width="' + w + '" height="' + h + '"><polyline points="' + pts + '" fill="none" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
 
   function cardHTML(it){
     var rank = (it.rank < 10 ? "0" : "") + it.rank;
     var heatEl = it.heat ? el("span","heat",it.heat) : el("span","heat na","热榜");
-    var cls = "angle", label = "借势角度", tagCls = "tag-badge tag-angle", tagLabel = "借势";
-    if(it.tag === "no"){ cls = "angle no"; label = "不推荐借势"; tagCls = "tag-badge tag-no"; tagLabel = "不推荐"; }
-    if(it.tag === "guard"){ cls = "angle guard"; label = "克制建议"; tagCls = "tag-badge tag-guard"; tagLabel = "克制"; }
-    var card = el("article","card");
+    var cls = "angle", label = "借势角度";
+    if(it.tag === "no"){ cls = "angle no"; label = "不推荐借势"; }
+    if(it.tag === "guard"){ cls = "angle guard"; label = "克制建议"; }
+    var priCls = "pri";
+    if(it.priority >= 80) priCls += " pri-high";
+    else if(it.priority >= 60) priCls += " pri-mid";
+    var hasTpl = it.content_template && it.tag === "angle";
+    var card = el("article","card" + (hasTpl ? " expandable" : ""));
     var head = el("div","card-head");
     head.appendChild(el("span","rank",rank));
     var tw = el("div");
@@ -237,18 +459,65 @@
     titleEl.href = searchUrl;
     titleEl.target = "_blank";
     titleEl.rel = "noopener noreferrer";
+    titleEl.title = "点击跳转到" + (it.plat === "douyin" ? "抖音" : "小红书") + "搜索页";
     tw.appendChild(titleEl);
     var meta = el("div","card-meta");
     meta.appendChild(el("span","chip-cat",it.cat));
     meta.appendChild(heatEl);
-    meta.appendChild(el("span",tagCls,tagLabel));
+    meta.appendChild(el("span",priCls,"优先级 " + it.priority));
+    if(it.life_days > 1) meta.appendChild(el("span","life-badge","已上榜" + it.life_days + "天"));
     tw.appendChild(meta);
     head.appendChild(tw);
+    if(hasTpl){
+      var expBtn = el("button","expand-btn","展开");
+      expBtn.onclick = function(e){
+        e.stopPropagation();
+        var detail = card.querySelector(".card-detail");
+        var isOpen = detail.classList.contains("open");
+        detail.classList.toggle("open");
+        expBtn.textContent = isOpen ? "展开" : "收起";
+        card.classList.toggle("expanded");
+      };
+      head.appendChild(expBtn);
+    }
     card.appendChild(head);
     card.appendChild(el("p","sum",it.sum));
+    var priBar = el("div","pri-bar");
+    priBar.innerHTML = '<div class="pri-bar-item"><span class="pri-bar-label">热度</span><div class="pri-bar-track"><div class="pri-bar-fill heat-fill" style="width:' + it.heat_score*2 + '%"></div></div><span class="pri-bar-val">' + it.heat_score + '</span></div>' +
+      '<div class="pri-bar-item"><span class="pri-bar-label">契合</span><div class="pri-bar-track"><div class="pri-bar-fill fit-fill" style="width:' + it.fit_score*2 + '%"></div></div><span class="pri-bar-val">' + it.fit_score + '</span></div>';
+    if(it.heat_trend && it.heat_trend.length >= 2){
+      priBar.innerHTML += '<div class="pri-trend">' + sparkline(it.heat_trend, 80, 24) + '<span class="trend-label">热度趋势</span></div>';
+    }
+    card.appendChild(priBar);
     var angleBox = el("div",cls);
     angleBox.innerHTML = "<b>" + label + "</b>　" + it.angle;
+    var copyBtn = el("button","copy-btn","复制");
+    copyBtn.onclick = function(e){
+      e.stopPropagation();
+      var text = it.title + "\n" + label + "：" + it.angle + "\n优先级：" + it.priority + "（热度" + it.heat_score + "+契合" + it.fit_score + "）| 热度：" + it.heat + " | 分类：" + it.cat;
+      navigator.clipboard.writeText(text).then(function(){
+        copyBtn.textContent = "已复制";
+        copyBtn.classList.add("copied");
+        setTimeout(function(){ copyBtn.textContent = "复制"; copyBtn.classList.remove("copied"); }, 1500);
+      });
+    };
+    angleBox.appendChild(copyBtn);
     card.appendChild(angleBox);
+    if(hasTpl){
+      var tpl = it.content_template;
+      var detail = el("div","card-detail");
+      var html = '<div class="detail-section"><div class="detail-title">内容标题建议</div><div class="detail-titles">';
+      (tpl.titles || []).forEach(function(t, i){ html += '<div class="detail-title-item"><span class="title-num">' + (i+1) + '</span>' + t + '</div>'; });
+      html += '</div></div>';
+      if(tpl.copy_direction) html += '<div class="detail-section"><div class="detail-title">文案方向</div><div class="detail-text">' + tpl.copy_direction + '</div></div>';
+      if(tpl.tags && tpl.tags.length) html += '<div class="detail-section"><div class="detail-title">推荐标签</div><div class="detail-tags">' + tpl.tags.map(function(t){ return '<span class="detail-tag">' + t + '</span>'; }).join("") + '</div></div>';
+      if(tpl.director_notes) html += '<div class="detail-section"><div class="detail-title">编导执行</div><div class="detail-text director">' + tpl.director_notes + '</div></div>';
+      if(tpl.distribution) html += '<div class="detail-section"><div class="detail-title">内容分发策略</div><div class="detail-text distribution">' + tpl.distribution + '</div></div>';
+      if(tpl.marketing_analysis) html += '<div class="detail-section"><div class="detail-title">营销分析</div><div class="detail-text marketing">' + tpl.marketing_analysis + '</div></div>';
+      if(tpl.platform_fit) html += '<div class="detail-section"><div class="detail-title">平台契合度</div><div class="detail-text platform">' + tpl.platform_fit + '</div></div>';
+      detail.innerHTML = html;
+      card.appendChild(detail);
+    }
     return card;
   }
 
@@ -256,22 +525,112 @@
     var box = document.getElementById("list");
     box.innerHTML = "";
     var arr = DATA[state.plat] || [];
-    arr.forEach(function(it){ box.appendChild(cardHTML(it)); });
+    var list = arr.filter(function(x){
+      var okCat = state.cat === "全部" || x.cat === state.cat;
+      var okRec = state.rec === "全部" || x.tag === state.rec;
+      return okCat && okRec;
+    });
+    var sortBy = document.getElementById("sort-select").value;
+    if(sortBy === "heat"){
+      list.sort(function(a,b){ return parseHeat(b.heat) - parseHeat(a.heat); });
+    } else if(sortBy === "priority"){
+      list.sort(function(a,b){ return b.priority - a.priority; });
+    } else {
+      list.sort(function(a,b){ return a.rank - b.rank; });
+    }
+    document.getElementById("count").textContent = "共 " + list.length + " 条";
+    if(!list.length){
+      box.appendChild(el("div","empty","该分类下暂无条目"));
+      return;
+    }
+    list.forEach(function(it){ box.appendChild(cardHTML(it)); });
+  }
+
+  function parseHeat(s){
+    if(!s) return 0;
+    s = String(s).replace(/[^0-9.万亿]/g, "");
+    if(s.indexOf("万") >= 0) return parseFloat(s) * 10000;
+    if(s.indexOf("亿") >= 0) return parseFloat(s) * 100000000;
+    return parseFloat(s) || 0;
+  }
+
+  function getFilteredList(){
+    var arr = DATA[state.plat] || [];
+    return arr.filter(function(x){
+      var okCat = state.cat === "全部" || x.cat === state.cat;
+      var okRec = state.rec === "全部" || x.tag === state.rec;
+      return okCat && okRec;
+    });
+  }
+
+  function exportCSV(){
+    var list = getFilteredList();
+    var platName = state.plat === "douyin" ? "抖音" : "小红书";
+    var header = ["排名","标题","平台","热度","内容类型","推荐类型","优先级","借势建议","摘要"];
+    var rows = list.map(function(it){
+      var tagLabel = it.tag === "angle" ? "借势角度" : (it.tag === "no" ? "不推荐借势" : "克制建议");
+      return [it.rank, it.title, platName, it.heat, it.cat, tagLabel, it.priority, it.angle.replace(/"/g, "\"\""), it.sum.replace(/"/g, "\"\"")];
+    });
+    var csv = "\uFEFF" + [header].concat(rows).map(function(r){
+      return r.map(function(c){ return "\"" + String(c).replace(/"/g, "\"\"") + "\""; }).join(",");
+    }).join("\n");
+    var blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = "博主借势_" + platName + "_" + new Date().toISOString().slice(0,10) + ".csv";
+    a.click(); URL.revokeObjectURL(url);
+  }
+
+  function exportMarkdown(){
+    var list = getFilteredList();
+    var platName = state.plat === "douyin" ? "抖音" : "小红书";
+    var md = "## " + platName + "热点借势建议（" + list.length + "条）\n\n";
+    md += "| 排名 | 标题 | 热度 | 类型 | 推荐 | 优先级 | 借势建议 |\n";
+    md += "|---|---|---|---|---|---|---|\n";
+    list.forEach(function(it){
+      var tagLabel = it.tag === "angle" ? "✅借势" : (it.tag === "no" ? "❌不推荐" : "⚠️克制");
+      md += "| " + it.rank + " | " + it.title + " | " + it.heat + " | " + it.cat + " | " + tagLabel + " | " + it.priority + " | " + it.angle + " |\n";
+    });
+    navigator.clipboard.writeText(md).then(function(){
+      var btn = document.getElementById("export-md");
+      var old = btn.textContent; btn.textContent = "已复制到剪贴板";
+      setTimeout(function(){ btn.textContent = old; }, 1500);
+    });
+  }
+
+  function exportTop3(){
+    var items = [{"no": "借势机会 01", "title": "日常减脂美食", "src": "小红书「超日常美食教程速来get」886万", "tact": "核心创意把热点日常美食改造为减脂版，内容形式是小红书图文教程，拍摄场景选厨房，开头用美食特写抓眼，全程放步骤图，匹配博主家常不饿瘦的接地气人设，收割热点流量的同时涨精准粉，强化人设定位。"}, {"no": "借势机会 02", "title": "减脂爆米花馒头", "src": "小红书「蒸出了奶香爆米花馒头」716万", "tact": "核心创意改造网红爆款馒头做控糖减脂版，结合博主主食替换的饮食方法论，用小红书图文教程形式拍制作步骤，开头用开花馒头特写抓眼球，符合接地气人设，收割热点流量，涨爱吃主食的减脂精准粉。"}, {"no": "借势机会 03", "title": "垮脸适配妆容", "src": "小红书「珠圆玉润妆完全是淡颜天菜」193万", "tact": "核心创意结合博主瘦不垮脸的核心卖点，给减脂后脸松的姐姐分享适配的珠圆玉润妆，用对比封面的图文教程抓眼，强化气血瘦不垮脸的人设，吸引有变美需求的目标受众，涨精准粉。"}];
+    var md = "## 今日博主借势 TOP3\n\n";
+    items.forEach(function(it){
+      md += "### " + it.no + "：" + it.title + "\n\n";
+      md += "- **来源**：" + it.src + "\n";
+      md += "- **编导策略**：" + it.tact + "\n\n";
+    });
+    navigator.clipboard.writeText(md).then(function(){
+      var btn = document.getElementById("export-top3");
+      var old = btn.textContent; btn.textContent = "已复制到剪贴板";
+      setTimeout(function(){ btn.textContent = old; }, 1500);
+    });
   }
 
   function renderAll(){
     var t = document.getElementById("tabs");
-    t.innerHTML = "";
-    renderTabs();
-    renderList();
+    var rc = document.getElementById("rec-chips");
+    var cc = document.getElementById("cat-chips");
+    t.innerHTML = ""; rc.innerHTML = ""; cc.innerHTML = "";
+    renderTabs(); renderRecChips(); renderCatChips(); renderList();
   }
 
   try {
     top3HTML();
     renderAll();
+    document.getElementById("sort-select").addEventListener("change", renderList);
+    document.getElementById("export-csv").addEventListener("click", exportCSV);
+    document.getElementById("export-md").addEventListener("click", exportMarkdown);
+    document.getElementById("export-top3").addEventListener("click", exportTop3);
   } catch(e){
     var box = document.getElementById("list");
-    box.innerHTML = '<div style="text-align:center;color:var(--sub);padding:40px 0;">页面渲染异常：' + e.message + '</div>';
+    box.innerHTML = '<div class="empty">页面渲染异常：' + e.message + '</div>';
   }
 })();
 </script>
