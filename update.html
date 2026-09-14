@@ -155,7 +155,7 @@
     if (phase === 'idle'){
       $('spinner').className = 'spinner paused';
       $('st-title').textContent = '尚未检测到更新任务';
-      $('st-sub').textContent = '点击下方「立即触发更新」按钮开始（每日上限 5 次，无需 GitHub 账号）';
+      $('st-sub').textContent = '点击下方按钮打开飞书表格，在表格里点「立即更新」触发（每日上限 5 次）';
     } else if (phase === 'done'){
       $('spinner').className = 'spinner';
       $('st-title').textContent = '更新完成，正在加载最新数据…';
@@ -271,39 +271,25 @@
       });
   }
 
+  // 飞书多维表格触发地址（国内可访问，token 存飞书自动化服务端）
+  var FEISHU_TRIGGER_URL = 'https://my.feishu.cn/base/BPmSbU7SfaQ8LnsjnPEc9N3Inld';
+
   function triggerUpdate(){
     var btn = $('trigger-btn');
     if (btn.disabled) return;
     btn.disabled = true;
-    btn.textContent = '触发中…';
+    btn.textContent = '已打开飞书，等待触发…';
     $('err').textContent = '';
 
-    if (TRIGGER_ENDPOINT === '__YOUR_VERCEL_TRIGGER_URL__'){
-      btn.disabled = false;
-      btn.textContent = '↻ 立即触发更新';
-      $('err').textContent = '触发代理尚未配置：请先部署 Vercel 并更新 TRIGGER_ENDPOINT。';
-      return;
-    }
+    // 打开飞书表格，用户在表格里点「立即更新」按钮触发
+    window.open(FEISHU_TRIGGER_URL, '_blank');
 
-    fetch(TRIGGER_ENDPOINT, { method: 'POST' })
-      .then(function(r){ return r.json().then(function(d){ return { status: r.status, data: d }; }); })
-      .then(function(res){
-        if (res.data && res.data.ok){
-          baselineId = null;
-          $('st-title').textContent = '更新已触发，正在启动…';
-          $('st-sub').textContent = '通常 10 秒内开始拉取热榜';
-          $('spinner').className = 'spinner';
-          btn.textContent = '更新进行中…';
-          setTimeout(function(){ poll(); }, 3000);
-        } else {
-          throw new Error((res.data && res.data.error) || ('HTTP ' + res.status));
-        }
-      })
-      .catch(function(e){
-        btn.disabled = false;
-        btn.textContent = '↻ 立即触发更新';
-        $('err').textContent = '触发失败：' + e.message + '（可能是每日上限已达 5 次，或代理未配置）';
-      });
+    // 重置基线，开始轮询
+    baselineId = null;
+    $('st-title').textContent = '请在飞书表格里点击「立即更新」按钮';
+    $('st-sub').textContent = '触发后此处会自动显示更新进度';
+    $('spinner').className = 'spinner';
+    setTimeout(function(){ poll(); }, 3000);
   }
 
   loadHistory();
