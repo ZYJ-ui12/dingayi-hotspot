@@ -118,9 +118,9 @@
 (function(){
   var REPO = 'ZYJ-ui12/dingayi-hotspot';
   var API = 'https://api.github.com/repos/' + REPO + '/actions/runs?per_page=5';
-  // ★ 触发代理端点：部署 Cloudflare Worker 后替换为你的 Worker URL
-  // 例如：https://dingayi-trigger.your-username.workers.dev
-  var TRIGGER_ENDPOINT = 'https://dingayi-trigger.1519686291.workers.dev';
+  // 触发代理端点（Vercel Serverless Function，国内可访问；token 存服务端，不进前端）
+  // 部署 Vercel 后替换为你的 API URL，例如：https://dingayi-hotspot-xxx.vercel.app/api/trigger
+  var TRIGGER_ENDPOINT = '__YOUR_VERCEL_TRIGGER_URL__';
   var baselineId = null;
   var startedAt = null;
   var stopPoll = false;
@@ -278,10 +278,10 @@
     btn.textContent = '触发中…';
     $('err').textContent = '';
 
-    if (TRIGGER_ENDPOINT === '__YOUR_WORKER_URL__'){
+    if (TRIGGER_ENDPOINT === '__YOUR_VERCEL_TRIGGER_URL__'){
       btn.disabled = false;
       btn.textContent = '↻ 立即触发更新';
-      $('err').textContent = '触发代理尚未配置：请先部署 Cloudflare Worker 并更新 TRIGGER_ENDPOINT。';
+      $('err').textContent = '触发代理尚未配置：请先部署 Vercel 并更新 TRIGGER_ENDPOINT。';
       return;
     }
 
@@ -289,13 +289,11 @@
       .then(function(r){ return r.json().then(function(d){ return { status: r.status, data: d }; }); })
       .then(function(res){
         if (res.data && res.data.ok){
-          // 触发成功：重置基线，等待新 run 出现
           baselineId = null;
           $('st-title').textContent = '更新已触发，正在启动…';
           $('st-sub').textContent = '通常 10 秒内开始拉取热榜';
           $('spinner').className = 'spinner';
           btn.textContent = '更新进行中…';
-          // 立即查一次，之后轮询会接管
           setTimeout(function(){ poll(); }, 3000);
         } else {
           throw new Error((res.data && res.data.error) || ('HTTP ' + res.status));
