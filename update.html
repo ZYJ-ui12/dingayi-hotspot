@@ -155,7 +155,7 @@
     if (phase === 'idle'){
       $('spinner').className = 'spinner paused';
       $('st-title').textContent = '尚未检测到更新任务';
-      $('st-sub').textContent = '点击下方按钮打开飞书表格，在表格里点「立即更新」触发（每日上限 5 次）';
+      $('st-sub').textContent = '自动更新：每天 10:00 / 15:00。手动更新请点下方按钮（需登录 GitHub）';
     } else if (phase === 'done'){
       $('spinner').className = 'spinner';
       $('st-title').textContent = '更新完成，正在加载最新数据…';
@@ -271,22 +271,22 @@
       });
   }
 
-  // 飞书多维表格触发地址（国内可访问，token 存飞书自动化服务端）
-  var FEISHU_TRIGGER_URL = 'https://my.feishu.cn/base/BPmSbU7SfaQ8LnsjnPEc9N3Inld';
+  // GitHub Actions 手动触发页面（需登录 GitHub 账号）
+  var GITHUB_ACTIONS_URL = 'https://github.com/ZYJ-ui12/dingayi-hotspot/actions/workflows/daily.yml';
 
   function triggerUpdate(){
     var btn = $('trigger-btn');
     if (btn.disabled) return;
     btn.disabled = true;
-    btn.textContent = '已打开飞书，等待触发…';
+    btn.textContent = '已打开 GitHub，等待触发…';
     $('err').textContent = '';
 
-    // 打开飞书表格，用户在表格里点「立即更新」按钮触发
-    window.open(FEISHU_TRIGGER_URL, '_blank');
+    // 打开 GitHub Actions 页面，用户点 Run workflow 触发
+    window.open(GITHUB_ACTIONS_URL, '_blank');
 
     // 重置基线，开始轮询
     baselineId = null;
-    $('st-title').textContent = '请在飞书表格里点击「立即更新」按钮';
+    $('st-title').textContent = '请在 GitHub 页面点「Run workflow」触发更新';
     $('st-sub').textContent = '触发后此处会自动显示更新进度';
     $('spinner').className = 'spinner';
     setTimeout(function(){ poll(); }, 3000);
