@@ -120,7 +120,7 @@
   var API = 'https://api.github.com/repos/' + REPO + '/actions/runs?per_page=5';
   // 触发代理端点（Vercel Serverless Function，国内可访问；token 存服务端，不进前端）
   // 部署 Vercel 后替换为你的 API URL，例如：https://dingayi-hotspot-xxx.vercel.app/api/trigger
-  var TRIGGER_ENDPOINT = '__YOUR_VERCEL_TRIGGER_URL__';
+  var TRIGGER_ENDPOINT = 'https://dingayi-hotspot.vercel.app/api/trigger';
   var baselineId = null;
   var startedAt = null;
   var stopPoll = false;
