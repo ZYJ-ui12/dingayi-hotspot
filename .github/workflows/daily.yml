@@ -1,9 +1,11 @@
 name: dingayi-hotspot-daily
 
 on:
-  # 定时自动更新：北京时间 10:00（UTC 2:00）
-  schedule:
-    - cron: '0 2 * * *'
+  # 已暂停：火山方舟无余额，2026-11-02 起停止每日自动更新，避免失败通知刷屏
+  # 恢复方法：方舟控制台充值并更新 ARK_API_KEY / ARK_MODEL 后，取消下方 schedule 注释并推送即可
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '0 2 * * *'
 
 permissions:
   contents: write
